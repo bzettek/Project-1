@@ -1,22 +1,21 @@
 openapi: 3.0.0
 info:
-  version: 0.0-oas3
-  title: cpuinfo
+  version: '1.0'
+  title: CFBA_Predictor
   description: >-
-    A simple service to get cpuinfo as an example of using swagger-2.0
-    specification and codegen
+    API to predict college football games based on attendance and fill rate.
   termsOfService: 'http://swagger.io/terms/'
   contact:
-    name: Cloudmesh REST Service Example
+    name: College Football Attendance Predictor
   license:
     name: Apache
 paths:
   /predict/{id}:
     get:
       tags:
-        - SUM
+        - Prediction
       operationId: prediction.my_prediction
-      description: Returns cpu information of the hosting server
+      description: Returns predicted attendance based off two list values given
       parameters:
         - in: path
           name: id
@@ -34,23 +33,62 @@ paths:
             type: boolean
       responses:
         '200':
-          description: 'CPU info, or add more text'
+          description: 'Predicted attendance'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CPU'
+                $ref: '#/components/schemas/Predict'
+                
+  #/model/{metric}:
+ #   get:
+ #     tags:
+ #       - Stats
+ #     operationId: prediction.my_model
+ #     description: Returns valuable metrics about the model in use.
+ #     parameters:
+ #       - in: path
+ #         name: metric
+ #         required: true
+#          schema:
+ #           type: array
+#            items:
+ #             type: number
+ #           minItems: 1
+ #         style: simple
+ #         explode: true
+ #       - in: query
+ #         name: metadata
+ #         schema:
+ #           type: boolean
+#      responses:
+ #       '200':
+ #         description: 'allows you to enter MSE, RMSE, or MAE keywords to return'
+#          content:
+#            application/json:
+#              schema:
+ #               $ref: '#/components/schemas/Model'
+ 
+  /dataset/<filename>:
+    get:
+      tags:
+        - Download
+      summary: Allows you to download the dataset that was used in the model.
+      operationId: file.download
+      responses:
+        '405':
+          description: Invalid input
 servers:
   - url: 'http://localhost:8080/engr-222'
 components:
   schemas:
-    CPU:
+    Predict:
       type: object
       required:
         - model
       properties:
         model:
           type: string
-    OS:
+    Model:
       type: object
       required:
         - model
