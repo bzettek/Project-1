@@ -39,34 +39,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/Predict'
                 
-  #/model/{metric}:
- #   get:
- #     tags:
- #       - Stats
- #     operationId: prediction.my_model
- #     description: Returns valuable metrics about the model in use.
- #     parameters:
- #       - in: path
- #         name: metric
- #         required: true
-#          schema:
- #           type: array
-#            items:
- #             type: number
- #           minItems: 1
- #         style: simple
- #         explode: true
- #       - in: query
- #         name: metadata
- #         schema:
- #           type: boolean
-#      responses:
- #       '200':
- #         description: 'allows you to enter MSE, RMSE, or MAE keywords to return'
-#          content:
-#            application/json:
-#              schema:
- #               $ref: '#/components/schemas/Model'
+  /model:
+    get:
+      tags:
+        - print
+      summary: Allows you to print rmse
+      operationId: prediction.my_meteric
+      responses:
+        '405':
+          description: Invalid input
  
   /dataset/<filename>:
     get:

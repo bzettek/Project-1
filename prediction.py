@@ -19,3 +19,13 @@ def my_prediction(id):
     name_str = json.dumps(prediction)
     stringg = [name_str]
     return stringg
+    
+def my_meteric():
+    val = 176.66
+    prediction = str(val)
+    name_str = json.dumps(prediction)
+    rmse = [name_str]
+    return rmse
+    
+    
+    
