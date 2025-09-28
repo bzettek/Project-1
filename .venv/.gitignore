@@ -1,5 +1,6 @@
 .venv/
 __pycache__/
 *.ipynb
+*.log
+*.pkl
 data/predictions_log.csv
-new_regressor_model.joblib
