@@ -1,314 +1,540 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CFB Attendance Predictor</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-<style>label.full{grid-column:1/-1}</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CFB Attendance Predictor</title>
+  <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
-<header class="nav"><a class="brand" href="{{ url_for('index') }}">CFB Attendance</a></header>
+  <header class="top-nav">
+    <div class="spacer">
+      <a class="nav-link" href="{{ url_for('how_page') }}">How?</a>
+    </div>
+    <a class="brand" href="{{ url_for('index') }}">Home</a>
+    <div class="spacer">
+      <a class="nav-link" href="{{ url_for('why_page') }}">Why?</a>
+    </div>
+  </header>
 
-<main class="container">
-<!-- Centered logo -->
-<div class="logo-wrap">
-  <img
-    src="{{ url_for('static', filename='cfbLogo.png') }}"
-    alt="CFB Attendance"
-    class="hero-logo"
-    loading="lazy"
-    decoding="async"
-  >
-</div>
-  <h1>Predict Attendance</h1>
+  <header class="site-header">
+    <div class="logo-wrap">
+      <img src="/static/cfbLogo.png" alt="CFB Logo" class="logo" />
+    </div>
+    <p class="sub">Estimate game attendance from a few simple inputs.</p>
+  </header>
 
-<h2>Home Team (auto-fill)</h2>
-<div class="grid">
-  <label class="full">
-    <span>Home Team</span>
-    <!-- placeholder shows "Notre Dame" but value is empty -->
-    <input id="homeTeam" list="teamList" placeholder=" Notre Dame— example">
-    <datalist id="teamList"></datalist>
-  </label>
-</div>
+  <main class="container">
+    <section class="card">
+      <h2 class="card-title">Model Inputs</h2>
 
-<h2>Model Inputs</h2>
-<p>Order: <code>capacity</code>, <code>fill (0–1)</code>, <code>wins</code>, <code>losses</code>, <code>prcp</code></p>
-<div class="grid">
-  <label><span>Capacity</span>
-    <input id="cap" type="number" placeholder="80795">    <!-- example only -->
-  </label>
-  <label><span>Fill (0–1)</span>
-    <input id="fill" type="number" step="0.001" min="0" max="1" placeholder="1.000">
-  </label>
-  <label><span>Wins</span>
-    <input id="wins" type="number" placeholder="5">
-  </label>
-  <label><span>Losses</span>
-    <input id="losses" type="number" placeholder="2">
-  </label>
-  <label><span>Precip</span>
-    <input id="prcp" type="number" step="0.01" placeholder="0.10">
-  </label>
-</div>
+      <!-- Error / success messages -->
+      <div id="alert" class="alert" hidden></div>
 
-  <h2>Context (optional)</h2>
-  <div class="grid">
-<label>
-  <span>Ranked Status</span>
-  <select id="rankedStatus">
-    <option value="" selected hidden>Home ranked — example</option>
-    <option value="neither">Neither ranked</option>
-    <option value="home">Only home ranked</option>
-    <option value="away">Only away ranked</option>
-    <option value="both">Both ranked</option>
-  </select>
-</label>
+      <!-- Optional: Home team (for auto capacity/fill) -->
+      <div class="field suggest-field">
+        <label class="with-tip" for="homeTeam">
+          Home Team (optional)
+          <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What is Home Team?">?</span>
+          <span class="tip-content" role="tooltip">
+            Type a home team to auto-fill capacity and typical fill rate. Works with aliases like
+            <em>Ohio St.</em> or <em>USC</em>. This field is optional.
+          </span>
+        </label>
+        <input id="homeTeam" name="homeTeam"
+               autocomplete="off" placeholder="Notre Dame"
+               aria-autocomplete="list" aria-haspopup="listbox"
+               aria-controls="homeTeamSuggestions" aria-expanded="false" />
+        <div id="homeTeamSuggestions" class="suggestions" role="listbox" hidden></div>
+      </div>
 
-<label>
-  <span>Rivalry?</span>
-  <select id="rivalry">
-    <option value="" selected hidden>Yes — example</option>
-    <option value="false">No</option>
-    <option value="true">Yes</option>
-  </select>
-</label>
+      <div class="grid">
+        <!-- Capacity -->
+        <div class="field">
+          <label class="with-tip" for="capacity">
+            Capacity
+            <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What is Capacity?">?</span>
+            <span class="tip-content" role="tooltip">
+              <strong>Capacity</strong> = the stadium’s total number of seats for football.
+              Use the latest capacity after renovations. Enter a whole number of people
+              (e.g., <code>80795</code>).
+            </span>
+          </label>
+          <input id="capacity" name="capacity" type="number" inputmode="numeric"
+                 placeholder="80795" />
+        </div>
 
-<label>
-  <span>Kickoff Window</span>
-  <select id="kickoffWindow">
-    <option value="" selected hidden>Night — example</option>
-    <option value="morning">Morning</option>
-    <option value="afternoon">Afternoon</option>
-    <option value="night">Night</option>
-  </select>
-</label>
-  </div>
+        <!-- Fill rate -->
+        <div class="field">
+          <label class="with-tip" for="fill">
+            Fill rate
+            <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What is Fill rate?">?</span>
+            <span class="tip-content" role="tooltip">
+              <strong>Fill rate</strong> = average home attendance ÷ capacity over recent seasons.
+              Enter a decimal between <code>0.00</code> and <code>1.00</code> (e.g., <code>0.92</code>).
+            </span>
+          </label>
+          <input id="fill" name="fill" type="number" step="0.01" min="0" max="1"
+                 placeholder="0.92" />
+        </div>
 
-  <button id="btn">Predict</button>
-  <div id="err" class="err" style="display:none"></div>
-  <div id="out" class="card" style="display:none"></div>
-</main>
+        <!-- Wins -->
+        <div class="field">
+          <label class="with-tip" for="wins">
+            Wins
+            <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What are Wins?">?</span>
+            <span class="tip-content" role="tooltip">
+              <strong>Wins</strong> = home team wins entering this game (e.g., <code>5</code>).
+            </span>
+          </label>
+          <input id="wins" name="wins" type="number" inputmode="numeric"
+                 placeholder="5" />
+        </div>
 
-<footer class="foot">
-  <div class="foot-inner">
+        <!-- Losses -->
+        <div class="field">
+          <label class="with-tip" for="losses">
+            Losses
+            <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What are Losses?">?</span>
+            <span class="tip-content" role="tooltip">
+              <strong>Losses</strong> = home team losses entering this game (e.g., <code>2</code>).
+            </span>
+          </label>
+          <input id="losses" name="losses" type="number" inputmode="numeric"
+                 placeholder="2" />
+        </div>
+
+        <!-- Precipitation -->
+        <div class="field">
+          <label class="with-tip" for="prcp">
+            Precipitation
+            <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What is Precipitation?">?</span>
+            <span class="tip-content" role="tooltip">
+              <strong>Precipitation</strong> = expected rain/snow during the game in inches
+              (e.g., <code>0.10</code> for a light shower). Use <code>0</code> if none expected.
+            </span>
+          </label>
+          <input id="prcp" name="prcp" type="number" step="0.01" min="0"
+                 placeholder="0.10" />
+        </div>
+      </div>
+
+      <!-- Optional context group -->
+      <div class="grid grid-3">
+        <div class="field">
+          <label class="with-tip" for="rankedStatus">
+            Ranked status (optional)
+            <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What is Ranked status?">?</span>
+            <span class="tip-content" role="tooltip">
+              Is either team ranked in the latest AP/Coaches poll? Not required for prediction.
+            </span>
+          </label>
+          <select id="rankedStatus" name="rankedStatus">
+            <option value="" selected disabled hidden>— select —</option>
+            <option value="neither">Neither ranked</option>
+            <option value="home">Home ranked</option>
+            <option value="away">Away ranked</option>
+            <option value="both">Both ranked</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="with-tip" for="rivalry">
+            Rivalry game? (optional)
+            <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What is Rivalry?">?</span>
+            <span class="tip-content" role="tooltip">
+              Is this a traditional rivalry game? Not required for prediction.
+            </span>
+          </label>
+          <select id="rivalry" name="rivalry">
+            <option value="" selected disabled hidden>— select —</option>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="with-tip" for="kickoffWindow">
+            Kickoff window (optional)
+            <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What is Kickoff window?">?</span>
+            <span class="tip-content" role="tooltip">
+              Local start time bucket. Not required for prediction.
+              <ul style="margin:.5em 0 0 1em; padding:0;">
+                <li>Morning: before 1:00 PM</li>
+                <li>Afternoon: 1–6 PM</li>
+                <li>Night: after 6 PM</li>
+              </ul>
+            </span>
+          </label>
+          <select id="kickoffWindow" name="kickoffWindow">
+            <option value="" selected disabled hidden>— select —</option>
+            <option value="morning">Morning</option>
+            <option value="afternoon">Afternoon</option>
+            <option value="night">Night</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="predictBtn" type="button" class="btn-primary">Predict attendance</button>
+      </div>
+
+      <div id="result" class="result" hidden>
+        <div class="result-title">Predicted Attendance</div>
+        <div id="predictionValue" class="result-value">—</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+
+    <p>© <span id="yr"></span> CFB Attendance Predictor</p>
     <div class="made-by">
       <span class="pill">Made by</span> <strong>Brandon Zettek</strong>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<script>
-const $ = id => document.getElementById(id);
+  <script>
+    // -------------------------- Tooltip tap support --------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const icons = document.querySelectorAll('.tip-icon');
+      const tips = document.querySelectorAll('.tip-content');
 
-/* ===================== Placeholders (clear on focus) ===================== */
-function setupInputPlaceholder(el, example) {
-  el.placeholder = example;
-  el.addEventListener('focus', () => { if (!el.value) el.placeholder = ''; });
-  el.addEventListener('blur',  () => { if (!el.value) el.placeholder = example; });
-}
-function setupSelectPlaceholder(selectEl, hintText) {
-  let hintOpt = selectEl.querySelector('option[value=""]');
-  if (!hintOpt) {
-    hintOpt = document.createElement('option');
-    hintOpt.value = '';
-    hintOpt.hidden = true;
-    hintOpt.selected = true;
-    selectEl.prepend(hintOpt);
-  }
-  hintOpt.textContent = hintText;
-  function blankHint(){ hintOpt.textContent = ''; }
-  function restoreHint(){ hintOpt.textContent = hintText; }
-  selectEl.addEventListener('focus',    () => { if (selectEl.value === '') blankHint(); });
-  selectEl.addEventListener('mousedown',() => { if (selectEl.value === '') blankHint(); });
-  selectEl.addEventListener('blur',     () => { if (selectEl.value === '') restoreHint(); });
-}
-// Wire placeholders
-setupInputPlaceholder($('homeTeam'), 'Notre Dame - example');
-setupInputPlaceholder($('cap'),      '80795');
-setupInputPlaceholder($('fill'),     '1.000');
-setupInputPlaceholder($('wins'),     '5');
-setupInputPlaceholder($('losses'),   '2');
-setupInputPlaceholder($('prcp'),     '0.10');
-setupSelectPlaceholder($('rankedStatus'),  'Home ranked');
-setupSelectPlaceholder($('rivalry'),       'Yes');
-setupSelectPlaceholder($('kickoffWindow'), 'Night');
+      const closeAllTips = () => {
+        document.querySelectorAll('.with-tip[data-open="true"]').forEach(wrapper => {
+          wrapper.dataset.open = 'false';
+          wrapper.classList.remove('tip-open');
+        });
+        document.querySelectorAll('.tip-icon[aria-expanded="true"]').forEach(trigger => {
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+      };
 
+      icons.forEach(icon => {
+        const wrapper = icon.closest('.with-tip');
+        icon.setAttribute('role', 'button');
+        if (wrapper) {
+          wrapper.dataset.open = 'false';
+          wrapper.classList.remove('tip-open');
+        }
 
-// === Clear ALL placeholders/hints on first user input ===
-let clearedHints = false;
-function clearAllHintsOnce() {
-  if (clearedHints) return;
-  clearedHints = true;
+        icon.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const wasOpen = icon.getAttribute('aria-expanded') === 'true';
+          closeAllTips();
+          if (!wasOpen) {
+            icon.setAttribute('aria-expanded', 'true');
+            if (wrapper) {
+              wrapper.dataset.open = 'true';
+              wrapper.classList.add('tip-open');
+            }
+          }
+        });
 
-  // inputs: remove placeholder text everywhere
-  ['homeTeam','cap','fill','wins','losses','prcp'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.placeholder = '';
-  });
+        icon.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            icon.click();
+          }
+        });
+        icon.addEventListener('mousedown', (e) => {
+          if (e.button === 0) {
+            e.preventDefault();
+          }
+        });
+      });
 
-  // selects: blank the hint option (value="")
-  ['rankedStatus','rivalry','kickoffWindow'].forEach(id => {
-    const sel = document.getElementById(id);
-    if (!sel) return;
-    const hint = sel.querySelector('option[value=""]');
-    if (hint) hint.textContent = '';
-  });
-}
+      tips.forEach(content => {
+        content.addEventListener('click', (e) => e.stopPropagation());
+      });
 
-// Hook EVERY relevant field:
-// - text/number inputs: on any typing
-['homeTeam','cap','fill','wins','losses','prcp'].forEach(id => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.addEventListener('input', clearAllHintsOnce);
-});
-
-// - selects: on any selection
-['rankedStatus','rivalry','kickoffWindow'].forEach(id => {
-  const sel = document.getElementById(id);
-  if (!sel) return;
-  sel.addEventListener('change', clearAllHintsOnce);
-  // also clear if they focus the select and immediately open it
-  sel.addEventListener('mousedown', clearAllHintsOnce);
-  sel.addEventListener('focus', clearAllHintsOnce);
-});
-
-
-/* ===================== Team list + instant autofill ===================== */
-// Load ALL teams for the datalist (includes aliases like "Michigan", "Oregon")
-(async () => {
-  try {
-    const res = await fetch('/api/teams');
-    const teams = await res.json();
-    $('teamList').innerHTML = teams.map(t => `<option value="${t}">`).join('');
-  } catch {}
-})();
-
-let aborter = null;
-function clamp01(x){ return Math.max(0, Math.min(1, x)); }
-
-async function fetchTeamNow(name){
-  if (!name) { $('cap').value=''; $('fill').value=''; return; }
-  try {
-    if (aborter) aborter.abort();
-    aborter = new AbortController();
-    const res = await fetch('/api/team?name=' + encodeURIComponent(name), { signal: aborter.signal });
-    if (!res.ok) return;
-    const data = await res.json();
-    if (data && data.team) {
-      if (Number.isFinite(+data.capacity)) $('cap').value = Number(data.capacity);
-      if (Number.isFinite(+data.fill))     $('fill').value = clamp01(+data.fill).toFixed(3);
-    }
-  } catch {}
-}
-
-const homeInput = $('homeTeam');
-// Fire on typing, datalist selection, and Enter/Tab — no blur needed
-homeInput.addEventListener('input',  () => fetchTeamNow(homeInput.value.trim()));
-homeInput.addEventListener('change', () => fetchTeamNow(homeInput.value.trim()));
-homeInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' || e.key === 'Tab') setTimeout(() => fetchTeamNow(homeInput.value.trim()), 0);
-});
-
-/* ===================== Validation + Predict ===================== */
-function clearError(){
-  const err = $('err');
-  if (!err) return;
-  err.style.display='none';
-  err.textContent='';
-  ['cap','fill','wins','losses','prcp'].forEach(id => $(id).classList.remove('invalid'));
-}
-function showError(msg, ids=[]){
-  let err = $('err');
-  if (!err) {
-    err = document.createElement('div');
-    err.id = 'err';
-    err.className = 'err';
-    $('btn').insertAdjacentElement('afterend', err);
-  }
-  err.textContent = msg;
-  err.style.display = 'block';
-  ids.forEach(id => $(id).classList.add('invalid'));
-  err.scrollIntoView({behavior:'smooth', block:'center'});
-}
-function isNum(v){ return v !== '' && !Number.isNaN(+v); }
-
-$('btn').addEventListener('click', async () => {
-  clearError();
-
-  const fields = {
-    cap: $('cap').value.trim(),
-    fill: $('fill').value.trim(),
-    wins: $('wins').value.trim(),
-    losses: $('losses').value.trim(),
-    prcp: $('prcp').value.trim()
-  };
-
-  // Require all 5 model inputs (Home/Context optional)
-  const missing = Object.entries(fields).filter(([_,v]) => v === '').map(([k]) => k);
-  if (missing.length){
-    return showError('Please fill in all required model inputs: capacity, fill, wins, losses, and precip.', missing);
-  }
-  const nonNums = Object.entries(fields).filter(([_,v]) => !isNum(v)).map(([k]) => k);
-  if (nonNums.length){
-    return showError('All model inputs must be numbers.', nonNums);
-  }
-
-  const capV = +fields.cap, fillV = +fields.fill, winsV = +fields.wins, lossesV = +fields.losses, prcpV = +fields.prcp;
-  const bad = [];
-  if (!(capV > 0)) bad.push('cap');
-  if (!(fillV >= 0 && fillV <= 1)) bad.push('fill');
-  if (!(winsV >= 0)) bad.push('wins');
-  if (!(lossesV >= 0)) bad.push('losses');
-  if (!(prcpV >= 0)) bad.push('prcp');
-  if (bad.length){
-    return showError('Check input ranges: capacity>0, fill 0–1, wins/losses ≥ 0, precip ≥ 0.', bad);
-  }
-
-  // Build extras (optional)
-  const ranked = $('rankedStatus').value || null;
-  const rivalryRaw = $('rivalry').value;              // '' | 'true' | 'false'
-  const rivalry = rivalryRaw === '' ? null : (rivalryRaw === 'true');
-  const kickoff = $('kickoffWindow').value || null;
-
-  const vals = [capV, fillV, winsV, lossesV, prcpV];
-  const extras = {
-    homeTeam: homeInput.value || null,
-    rankedStatus: ranked,
-    rivalry: rivalry,
-    kickoffWindow: kickoff
-  };
-
-  // Predict
-  const btn = $('btn');
-  btn.disabled = true; btn.textContent = 'Predicting…';
-  try{
-    const res = await fetch('/api/predict', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ features: vals, extras })
+      document.addEventListener('click', closeAllTips);
     });
-    const data = await res.json();
-    if (!res.ok || data.error){
-      showError(data.error || 'Prediction failed. Try again.');
-      return;
+
+    // -------------------------- Helpers --------------------------
+    const $ = sel => document.querySelector(sel);
+    const alertBox = $('#alert');
+    const setAlert = (msg, type='error') => {
+      alertBox.textContent = msg || '';
+      alertBox.className = 'alert ' + (type === 'error' ? 'error' : 'info');
+      alertBox.hidden = !msg;
+    };
+
+    // Clear all placeholders once user starts typing anywhere
+    let placeholdersCleared = false;
+    const clearAllPlaceholders = () => {
+      if (placeholdersCleared) return;
+      document.querySelectorAll('input[placeholder], select')
+        .forEach(el => { el.placeholder = ''; });
+      placeholdersCleared = true;
+    };
+
+    // Attach a single input handler to clear placeholders on first user action
+    document.addEventListener('input', clearAllPlaceholders, { once: true });
+
+    // -------------------------- Load teams for datalist --------------------------
+    const homeTeamInput = $('#homeTeam');
+    const homeTeamSuggestions = $('#homeTeamSuggestions');
+    const capacityInput = $('#capacity');
+    const fillInput = $('#fill');
+
+    const suggestionLimit = 8;
+    let teamOptions = [];
+    let suggestionItems = [];
+    let activeSuggestion = -1;
+
+    const setActiveSuggestion = (index) => {
+      activeSuggestion = index;
+      suggestionItems.forEach((item, idx) => {
+        const isActive = idx === index;
+        item.setAttribute('aria-selected', String(isActive));
+        if (isActive) {
+          item.scrollIntoView({ block: 'nearest' });
+          homeTeamInput.setAttribute('aria-activedescendant', item.id);
+        }
+      });
+      if (index < 0) {
+        homeTeamInput.removeAttribute('aria-activedescendant');
+      }
+    };
+
+    const hideSuggestions = () => {
+      homeTeamSuggestions.hidden = true;
+      homeTeamSuggestions.innerHTML = '';
+      homeTeamInput.setAttribute('aria-expanded', 'false');
+      suggestionItems = [];
+      setActiveSuggestion(-1);
+    };
+
+    const applySuggestion = (value) => {
+      homeTeamInput.value = value;
+      hideSuggestions();
+      doLookup(value);
+      homeTeamInput.focus();
+    };
+
+    const renderSuggestions = (matches) => {
+      if (!matches || !matches.length) {
+        hideSuggestions();
+        return;
+      }
+
+      homeTeamSuggestions.innerHTML = '';
+      matches.forEach((name, idx) => {
+        const option = document.createElement('button');
+        option.type = 'button';
+        option.className = 'suggestion-item';
+        option.id = `home-team-option-${idx}`;
+        option.setAttribute('role', 'option');
+        option.setAttribute('aria-selected', 'false');
+        option.dataset.value = name;
+        option.textContent = name;
+        option.addEventListener('pointerdown', (event) => event.preventDefault());
+        option.addEventListener('mousedown', (event) => event.preventDefault());
+        option.addEventListener('click', () => applySuggestion(name));
+        homeTeamSuggestions.appendChild(option);
+      });
+
+      suggestionItems = Array.from(homeTeamSuggestions.querySelectorAll('.suggestion-item'));
+      homeTeamSuggestions.hidden = false;
+      homeTeamInput.setAttribute('aria-expanded', 'true');
+      setActiveSuggestion(-1);
+    };
+
+    const filterTeams = (query) => {
+      const q = query.trim().toLowerCase();
+      if (!q) {
+        return teamOptions.slice(0, suggestionLimit);
+      }
+      return teamOptions.filter(name => name.toLowerCase().includes(q)).slice(0, suggestionLimit);
+    };
+
+    fetch('/api/teams')
+      .then(r => r.ok ? r.json() : [])
+      .then(arr => {
+        if (Array.isArray(arr)) {
+          teamOptions = arr;
+          if (document.activeElement === homeTeamInput) {
+            renderSuggestions(filterTeams(homeTeamInput.value));
+          }
+        }
+      })
+      .catch(() => { /* ignore */ });
+
+    // -------------------------- Autofill on every keystroke --------------------------
+
+    const markManual = el => {
+      el.dataset.autofill = 'manual';
+    };
+
+    [capacityInput, fillInput].forEach(el => {
+      el.addEventListener('input', () => {
+        if (el.value.trim() === '') {
+          delete el.dataset.autofill;
+        } else {
+          markManual(el);
+        }
+      });
+    });
+
+    let inflight = 0;
+    const doLookup = (name) => {
+      if (!name || name.trim().length < 1) return;
+      const ticket = ++inflight;
+      fetch('/api/team?name=' + encodeURIComponent(name.trim()))
+        .then(r => r.ok ? r.json() : {})
+        .then(data => {
+          if (ticket !== inflight) return; // drop stale response
+          if (data && data.team) {
+            const canUpdateCapacity = capacityInput.dataset.autofill !== 'manual' || capacityInput.value.trim() === '';
+            const canUpdateFill = fillInput.dataset.autofill !== 'manual' || fillInput.value.trim() === '';
+
+            if (Number.isFinite(+data.capacity) && canUpdateCapacity) {
+              capacityInput.value = String(parseInt(data.capacity, 10));
+              capacityInput.dataset.autofill = 'auto';
+            }
+            if (Number.isFinite(+data.fill) && canUpdateFill) {
+              const clampedFill = Math.max(0, Math.min(1, Number(data.fill)));
+              fillInput.value = clampedFill.toFixed(2);
+              fillInput.dataset.autofill = 'auto';
+            }
+          }
+        })
+        .catch(() => { /* ignore */ });
+    };
+
+    homeTeamInput.addEventListener('input', (e) => {
+      const value = e.target.value;
+      doLookup(value);
+      if (teamOptions.length) {
+        renderSuggestions(filterTeams(value));
+      }
+    });
+
+    homeTeamInput.addEventListener('focus', (e) => {
+      if (teamOptions.length) {
+        renderSuggestions(filterTeams(e.target.value));
+      }
+    });
+
+    homeTeamInput.addEventListener('blur', () => {
+      window.requestAnimationFrame(() => {
+        if (!homeTeamSuggestions.contains(document.activeElement)) {
+          hideSuggestions();
+        }
+      });
+    });
+
+    homeTeamInput.addEventListener('keydown', (e) => {
+      if (homeTeamSuggestions.hidden || !suggestionItems.length) return;
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const delta = e.key === 'ArrowDown' ? 1 : -1;
+        const nextIndex = (activeSuggestion + delta + suggestionItems.length) % suggestionItems.length;
+        setActiveSuggestion(nextIndex);
+      } else if (e.key === 'Enter') {
+        if (activeSuggestion >= 0 && suggestionItems[activeSuggestion]) {
+          e.preventDefault();
+          applySuggestion(suggestionItems[activeSuggestion].dataset.value);
+        }
+      } else if (e.key === 'Escape') {
+        hideSuggestions();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!homeTeamSuggestions.hidden && !homeTeamSuggestions.contains(e.target) && e.target !== homeTeamInput) {
+        hideSuggestions();
+      }
+    });
+
+    // -------------------------- Validation + Predict --------------------------
+    const winsInput   = $('#wins');
+    const lossesInput = $('#losses');
+    const prcpInput   = $('#prcp');
+
+    const predictBtn = $('#predictBtn');
+    const resultWrap = $('#result');
+    const predictionValue = $('#predictionValue');
+
+    const validNumber = (v) => v !== '' && !isNaN(+v);
+
+    function validateRequired() {
+      const missing = [];
+      if (!validNumber(capacityInput.value)) missing.push('Capacity');
+      if (!validNumber(fillInput.value))     missing.push('Fill rate');
+      if (!validNumber(winsInput.value))     missing.push('Wins');
+      if (!validNumber(lossesInput.value))   missing.push('Losses');
+      if (!validNumber(prcpInput.value))     missing.push('Precipitation');
+
+      if (missing.length) {
+        setAlert('Please provide: ' + missing.join(', ') + '.', 'error');
+        return false;
+      }
+      // extra checks
+      const fillVal = parseFloat(fillInput.value);
+      if (fillVal < 0 || fillVal > 1) {
+        setAlert('Fill rate must be between 0.00 and 1.00.', 'error');
+        return false;
+      }
+      setAlert('');
+      return true;
     }
-    const out = $('out'); out.style.display='block';
-    out.innerHTML = `
-      <h3>Predicted attendance: ${Number(data.prediction).toLocaleString()}</h3>
-      <div style="opacity:.85">
-        ${extras.homeTeam ? `<div><strong>${extras.homeTeam}</strong></div>` : ''}
-        ${extras.rankedStatus ? `<div>Ranked: ${extras.rankedStatus}</div>` : ''}
-        ${extras.rivalry !== null ? `<div>Rivalry: ${extras.rivalry ? 'Yes' : 'No'}</div>` : ''}
-        ${extras.kickoffWindow ? `<div>Kickoff: ${extras.kickoffWindow}</div>` : ''}
-      </div>`;
-  } catch (e){
-    showError('Network error. Please try again.');
-  } finally {
-    btn.disabled = false; btn.textContent = 'Predict';
-  }
-});
-</script>
+
+    predictBtn.addEventListener('click', () => {
+      if (!validateRequired()) return;
+
+      const payload = {
+        features: [
+          Number(capacityInput.value),
+          Math.max(0, Math.min(1, Number(fillInput.value))),
+          Number(winsInput.value),
+          Number(lossesInput.value),
+          Number(prcpInput.value)
+        ],
+        extras: {
+          homeTeam: homeTeamInput.value || undefined,
+          rankedStatus: $('#rankedStatus').value || undefined,
+          rivalry: $('#rivalry').value || undefined,
+          kickoffWindow: $('#kickoffWindow').value || undefined
+        }
+      };
+
+      predictBtn.disabled = true;
+      predictBtn.textContent = 'Predicting…';
+
+      fetch('/api/predict', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data && typeof data.prediction === 'number') {
+          resultWrap.hidden = false;
+          predictionValue.textContent = data.prediction.toLocaleString();
+        } else if (data && data.error) {
+          setAlert(data.error, 'error');
+          resultWrap.hidden = true;
+        } else {
+          setAlert('Unexpected response from server.', 'error');
+          resultWrap.hidden = true;
+        }
+      })
+      .catch(() => {
+        setAlert('Network error. Please try again.', 'error');
+        resultWrap.hidden = true;
+      })
+      .finally(() => {
+        predictBtn.disabled = false;
+        predictBtn.textContent = 'Predict attendance';
+      });
+    });
+
+    // Footer year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

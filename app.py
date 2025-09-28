@@ -5,11 +5,11 @@
 #   GET  /api/team?name=.. -> {team, capacity?, fill?} with fuzzy match
 #   POST /api/predict      -> {features:[cap,fill,wins,losses,prcp], extras:{...}} -> {prediction}
 #
-# Features:
-# - Uses MAX capacity across rows per team (handles stadium upgrades, e.g., Notre Dame 80,795).
+# Notes:
+# - Prefers a frozen catalog JSON (teams_catalog.json) so names are consistent, no CSV dependency.
+# - If JSON is missing, it will build a lookup from MERGED_CSV (uses MAX capacity, MEDIAN fill).
 # - Fill is clamped to [0,1].
-# - Builds aliases (e.g., "Michigan", "Oregon") and adds forced must-have aliases (e.g., "Ohio State").
-# - Fuzzy lookup so "Ohio State" / "Ohio St." / "The Ohio State University" all resolve.
+# - Must-have aliases included (e.g., "Ohio St.", "The Ohio State University").
 # - Logs predictions + context to data/predictions_log.csv.
 
 from flask import Flask, render_template, jsonify, request
@@ -18,19 +18,16 @@ import os, json, csv, time, re
 from joblib import load
 import pandas as pd
 
-MODEL_PATH   = os.getenv("MODEL_PATH",   "new_regressor_model.pkl")
-METRICS_PATH = os.getenv("METRICS_PATH", "model_metrics.json")
-MERGED_CSV   = os.getenv("MERGED_CSV",   "merged_attendance_dataset.csv")
+# ---------------------- Config ----------------------
+MODEL_PATH    = os.getenv("MODEL_PATH",    "new_regressor_model.joblib")  # use the compressed joblib
+MERGED_CSV    = os.getenv("MERGED_CSV",    "merged_attendance_dataset.csv")
+CATALOG_PATH  = os.getenv("CATALOG_PATH",  "teams_catalog.json")
+EXPECTED      = 5  # [capacity, fill (0–1), wins, losses, prcp]
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 model = load(MODEL_PATH)
 
-# The model expects EXACTLY 5 features, in this order:
-# [capacity, fill (0–1), wins, losses, prcp]
-EXPECTED = 5
-
-# ---------------------- Utilities ----------------------
-
+# ---------------------- Text utils ----------------------
 STOPWORDS = {"university", "of", "the", "and", "&", "at"}
 SECOND_WORD_KEEP = {
     "state", "tech", "a&m", "aandm", "southern", "western", "eastern",
@@ -51,67 +48,152 @@ def _tokens(s: str):
 def _alias_variants(display: str):
     """Generate useful short names like 'Michigan', 'Oregon', 'Texas State'."""
     al = set()
-    disp = display.strip()
-    if not disp: return al
-
+    disp = (display or "").strip()
+    if not disp:
+        return al
     toks = _tokens(disp)
-    if not toks: return al
-
-    # 1) Single-token alias (first token) e.g., "Michigan", "Oregon"
-    al.add(toks[0].title())
-
-    # 2) Two-token prefix if second token is a keeper (e.g., "Texas State", "Georgia Tech")
+    if not toks:
+        return al
+    al.add(toks[0].title())  # single-token short
     if len(toks) >= 2 and toks[1] in SECOND_WORD_KEEP:
-        al.add((toks[0] + " " + toks[1]).title())
-
-    # 3) "University of X" -> X
+        al.add((toks[0] + " " + toks[1]).title())  # two-token keeper
     m = re.search(r"university of ([a-z\s]+)$", _norm_team(disp))
     if m:
         x = m.group(1).strip().title()
-        if x: al.add(x)
-
-    # 4) Remove trailing parentheses "X (Football)" -> "X"
-    al.add(re.sub(r"\s*\([^)]*\)\s*$", "", disp).strip())
-
-    # 5) Heuristic mascot strip: if last word ends with 's', keep base like "Michigan" or "Texas State"
+        if x:
+            al.add(x)
+    al.add(re.sub(r"\s*\([^)]*\)\s*$", "", disp).strip())  # strip trailing parens
     if len(toks) >= 2 and disp.split()[-1].endswith("s"):
         base = [toks[0]]
-        if len(toks) >= 2 and toks[1] in SECOND_WORD_KEEP:
+        if toks[1] in SECOND_WORD_KEEP:
             base.append(toks[1])
         al.add(" ".join(w.title() for w in base).strip())
-
     return {x for x in al if x and len(x) >= 2}
 
-# ---------------------- Build Lookup, Aliases, Team List ----------------------
+# Must-have alias force list (helps with weird spellings)
+MUST_HAVE_ALIASES = {
+    "Ohio State": ["Ohio St.", "The Ohio State University", "Ohio State University"],
+    "Oregon": ["Oregon Ducks", "University of Oregon"],
+    "Michigan": ["Michigan Wolverines", "University of Michigan"],
+    "Texas A&M": ["Texas A and M", "Texas A&M University"],
+    "Ole Miss": ["Mississippi", "University of Mississippi"],
+    "USC": ["Southern California", "University of Southern California"],
+    "UCLA": ["University of California Los Angeles", "California-Los Angeles"],
+    "Pitt": ["Pittsburgh", "University of Pittsburgh"],
+    "NC State": ["North Carolina State"],
+    "UTSA": ["Texas San Antonio", "Texas at San Antonio"],
+    "BYU": ["Brigham Young", "Brigham Young University"],
+    "SMU": ["Southern Methodist", "Southern Methodist University"],
+    "Miami": ["Miami (FL)", "Miami (Florida)"],
+    "Miami (OH)": ["Miami (Ohio)"],
+    "Arizona State": ["Arizona St."],
+    "Colorado State": ["Colorado St."],
+    "Fresno State": ["Fresno St."],
+    "Kansas State": ["Kansas St."],
+    "Oklahoma State": ["Oklahoma St."],
+    "San Diego State": ["San Diego St."],
+    "San Jose State": ["San Jose St."],
+    "Boise State": ["Boise St."],
+    "Washington State": ["Washington St."],
+    "Utah State": ["Utah St."],
+    "Ball State": ["Ball St."],
+    "Bowling Green": ["Bowling Green State"],
+}
 
-LOOKUP = {}           # team_key -> { team, capacity, fill }
-DISPLAY_NAME = {}     # team_key -> chosen display name
-TEAM_ALIASES = {}     # alias -> team_key (for quick reverse lookup)
-TEAM_NAMES_ALL = []   # list[str] for datalist (display names + aliases)
+# ---------------------- Catalog / Lookup ----------------------
+LOOKUP = {}          # team_key -> {team, capacity, fill}
+DISPLAY_NAME = {}    # team_key -> display string
+TEAM_ALIASES = {}    # alias string -> team_key
+TEAM_NAMES_ALL = []  # for UI datalist
 
-if os.path.exists(MERGED_CSV):
-    df = pd.read_csv(MERGED_CSV)
+def _build_from_catalog_json(path: str) -> bool:
+    """Load a frozen catalog (recommended)."""
+    if not os.path.exists(path):
+        return False
+    blob = json.load(open(path, "r"))
+    teams = blob.get("teams", {})
+    alias_to_key = blob.get("alias_to_key", {})
+    public_names = blob.get("public_names", [])
 
-    # Identify columns that may contain team names (inclusive search)
+    # Fill globals
+    LOOKUP.clear()
+    DISPLAY_NAME.clear()
+    TEAM_ALIASES.clear()
+    TEAM_NAMES_ALL.clear()
+
+    for key, entry in teams.items():
+        disp = entry.get("display") or key.title()
+        DISPLAY_NAME[key] = disp
+        LOOKUP[key] = {
+            "team": disp,
+            "capacity": entry.get("capacity"),
+            "fill": entry.get("fill"),
+        }
+        TEAM_ALIASES[disp] = key
+        for a in entry.get("aliases", []):
+            TEAM_ALIASES.setdefault(a, key)
+
+    # Include any provided alias map explicitly
+    for a, k in alias_to_key.items():
+        TEAM_ALIASES[a] = k
+
+    # Make public list (fallback to all display names if not provided)
+    if public_names:
+        TEAM_NAMES_ALL.extend(public_names)
+    else:
+        TEAM_NAMES_ALL.extend(sorted(set(list(DISPLAY_NAME.values()) + list(TEAM_ALIASES.keys()))))
+
+    # Force-add must-have aliases (mapped to best key by token overlap)
+    def best_key_for(name: str):
+        qtok = set(_tokens(name))
+        best, score = None, -1
+        for k, disp in DISPLAY_NAME.items():
+            s = len(qtok & set(_tokens(disp)))
+            if s > score:
+                best, score = k, s
+        return best
+
+    for short, syns in MUST_HAVE_ALIASES.items():
+        k = best_key_for(short)
+        if k:
+            TEAM_ALIASES[short] = k
+            for s in syns:
+                TEAM_ALIASES.setdefault(s, k)
+
+    # Ensure dedup public names
+    TEAM_NAMES_ALL[:] = sorted(set(TEAM_NAMES_ALL + list(TEAM_ALIASES.keys()) + list(DISPLAY_NAME.values())))
+    return True
+
+def _build_from_csv(path: str) -> bool:
+    """Fallback: derive catalog from CSV (MAX capacity, MEDIAN fill) and add aliases."""
+    if not os.path.exists(path):
+        return False
+
+    df = pd.read_csv(path)
+
+    # Identify team-name columns
     name_like = [c for c in df.columns if any(k in c.lower() for k in ["team", "school", "program", "home team", "away team"])]
     if "Team" not in name_like and "Team" in df.columns:
         name_like.append("Team")
 
-    # Choose display per normalized key by frequency (tie-break by length)
+    # Choose canonical display by frequency
     display_counts = {}
     for col in name_like:
-        if col not in df.columns: continue
+        if col not in df.columns:
+            continue
         for val in df[col].dropna().astype(str):
             key = _norm_team(val)
-            if not key: continue
+            if not key:
+                continue
             display_counts.setdefault(key, {})
             display_counts[key][val] = display_counts[key].get(val, 0) + 1
 
+    DISPLAY_NAME.clear()
     for key, variants in display_counts.items():
         disp = sorted(variants.items(), key=lambda kv: (kv[1], len(kv[0])), reverse=True)[0][0]
         DISPLAY_NAME[key] = disp
 
-    # Candidate capacity/fill per row
+    # Candidate capacity / fill
     cap_col  = "Stadium Capacity" if "Stadium Capacity" in df.columns else None
     fill_col = "Fill Rate"        if "Fill Rate"        in df.columns else None
 
@@ -137,7 +219,7 @@ if os.path.exists(MERGED_CSV):
         if v is not None: v = max(0.0, min(v, 1.0))
         return v
 
-    # unify team key per row
+    # unify and aggregate
     def pick_team_val(row):
         for col in (["Team"] + [c for c in name_like if c != "Team"]):
             if col in row and pd.notna(row[col]):
@@ -150,117 +232,80 @@ if os.path.exists(MERGED_CSV):
     df["_cap_candidate"]    = df.apply(row_capacity, axis=1)
     df["_fill_candidate"]   = df.apply(row_fill, axis=1)
 
-    # aggregate per team
     agg = df.groupby("_team_key").agg(
         cap_max  = ("_cap_candidate", "max"),
         fill_med = ("_fill_candidate", "median")
     ).reset_index(drop=False)
 
-    # build LOOKUP
+    LOOKUP.clear()
     for _, r in agg.iterrows():
         key = r["_team_key"]
-        if not key: continue
+        if not key:
+            continue
         disp = DISPLAY_NAME.get(key) or df.loc[df["_team_key"] == key, "_team_display_raw"].dropna().astype(str).iloc[0]
         cap = r["cap_max"]; fill = r["fill_med"]
-        if pd.notna(cap):
-            LOOKUP[key] = {
-                "team": disp,
-                "capacity": int(round(float(cap))),               # MAX capacity
-                "fill": float(fill) if pd.notna(fill) else None   # MEDIAN fill
-            }
+        LOOKUP[key] = {
+            "team": disp,
+            "capacity": int(round(float(cap))) if pd.notna(cap) else None,
+            "fill": float(fill) if pd.notna(fill) else None
+        }
 
-    # Build aliases -> team_key
+    # aliases
+    TEAM_ALIASES.clear()
     for key, disp in DISPLAY_NAME.items():
-        TEAM_ALIASES[disp] = key  # map the display itself
+        TEAM_ALIASES[disp] = key
         for a in _alias_variants(disp):
             TEAM_ALIASES.setdefault(a, key)
 
-    # ---- Force-add common short aliases for major programs ----
-    MUST_HAVE_ALIASES = {
-        "Ohio State": ["Ohio St.", "The Ohio State University", "Ohio State University"],
-        "Oregon": ["Oregon Ducks", "University of Oregon"],
-        "Michigan": ["Michigan Wolverines", "University of Michigan"],
-        "Texas A&M": ["Texas A and M", "Texas A&M University"],
-        "Ole Miss": ["Mississippi", "University of Mississippi"],
-        "USC": ["Southern California", "University of Southern California"],
-        "UCLA": ["University of California Los Angeles", "California-Los Angeles"],
-        "Pitt": ["Pittsburgh", "University of Pittsburgh"],
-        "NC State": ["North Carolina State"],
-        "UTSA": ["Texas San Antonio", "Texas at San Antonio"],
-        "BYU": ["Brigham Young", "Brigham Young University"],
-        "SMU": ["Southern Methodist", "Southern Methodist University"],
-        "Miami": ["Miami (FL)", "Miami (Florida)"],
-        "Miami (OH)": ["Miami (Ohio)"],
-        "Arizona State": ["Arizona St."],
-        "Colorado State": ["Colorado St."],
-        "Fresno State": ["Fresno St."],
-        "Kansas State": ["Kansas St."],
-        "Oklahoma State": ["Oklahoma St."],
-        "San Diego State": ["San Diego St."],
-        "San Jose State": ["San Jose St."],
-        "Boise State": ["Boise St."],
-        "Washington State": ["Washington St."],
-        "Utah State": ["Utah St."],
-        "Ball State": ["Ball St."],
-        "Bowling Green": ["Bowling Green State"],
-    }
-
-    def _best_key_for_alias(name: str):
-        q = name.strip()
-        if not q: return None
-        k = _norm_team(q)
-        if k in DISPLAY_NAME:  # exact normalized display
-            return k
-        # token-overlap against DISPLAY_NAME
-        qtok = set(_tokens(q))
-        best, best_score = None, -1
-        for tkey, disp in DISPLAY_NAME.items():
-            dtok = set(_tokens(disp))
-            score = len(qtok & dtok)
-            if score > best_score:
-                best, best_score = tkey, score
+    # must-have aliases
+    def best_key_for(name: str):
+        qtok = set(_tokens(name))
+        best, score = None, -1
+        for k, disp in DISPLAY_NAME.items():
+            s = len(qtok & set(_tokens(disp)))
+            if s > score:
+                best, score = k, s
         return best
 
-    for short_name, synonyms in MUST_HAVE_ALIASES.items():
-        tkey = _best_key_for_alias(short_name)
-        if tkey:
-            TEAM_ALIASES[short_name] = tkey
-            for s in synonyms:
-                TEAM_ALIASES.setdefault(s, tkey)
+    for short, syns in MUST_HAVE_ALIASES.items():
+        k = best_key_for(short)
+        if k:
+            TEAM_ALIASES[short] = k
+            for s in syns:
+                TEAM_ALIASES.setdefault(s, k)
 
-    # Public list = union of display names and all aliases (incl. forced)
-    TEAM_NAMES_ALL = sorted(set(
-        list(DISPLAY_NAME.values()) +
-        list(TEAM_ALIASES.keys())
-    ))
+    # public names
+    TEAM_NAMES_ALL.clear()
+    TEAM_NAMES_ALL.extend(sorted(set(list(DISPLAY_NAME.values()) + list(TEAM_ALIASES.keys()))))
+    return True
 
-# Optional manual overrides for known upgrades
-# OVERRIDES = { "notre dame": {"capacity": 80795} }
+# Build data (prefer JSON, fallback to CSV)
+if not _build_from_catalog_json(CATALOG_PATH):
+    _build_from_csv(MERGED_CSV)
+
+# Optional manual overrides example:
+# OVERRIDES = {"notre dame": {"capacity": 80795}}
 # for k, v in OVERRIDES.items():
-#     if k in LOOKUP: LOOKUP[k].update(v)
+#     if k in LOOKUP:
+#         LOOKUP[k].update(v)
 
-# ---------------------- Routes ----------------------
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-@app.route("/api/teams")
-def api_teams():
-    return jsonify(TEAM_NAMES_ALL)
-
+# ---------------------- Helpers ----------------------
 def _best_key_for(query: str):
     """Exact key -> alias hit -> normalized alias -> token-overlap fuzzy best."""
-    q = query.strip()
-    if not q: return None
+    q = (query or "").strip()
+    if not q:
+        return None
     k = _norm_team(q)
-    # direct hit by normalized key
-    if k in LOOKUP or k in DISPLAY_NAME:
-        return k if k in DISPLAY_NAME else None
-    # alias hit (case-sensitive display or short)
+
+    # Direct normalized display hit
+    if k in DISPLAY_NAME:
+        return k
+
+    # Exact alias (case-sensitive) hit
     if q in TEAM_ALIASES:
         return TEAM_ALIASES[q]
-    # normalized alias map
+
+    # Normalized alias map (build once)
     norm_alias_map = getattr(_best_key_for, "_norm_alias_map", None)
     if norm_alias_map is None:
         norm_alias_map = {}
@@ -269,7 +314,8 @@ def _best_key_for(query: str):
         _best_key_for._norm_alias_map = norm_alias_map
     if k in norm_alias_map:
         return norm_alias_map[k]
-    # token overlap against DISPLAY_NAME
+
+    # Fuzzy token overlap against display names
     qtok = set(_tokens(q))
     best, best_score = None, 0
     for tkey, disp in DISPLAY_NAME.items():
@@ -278,6 +324,23 @@ def _best_key_for(query: str):
         if score > best_score:
             best, best_score = tkey, score
     return best
+
+# ---------------------- Routes ----------------------
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/how")
+def how_page():
+    return render_template("how.html")
+
+@app.route("/why")
+def why_page():
+    return render_template("why.html")
+
+@app.route("/api/teams")
+def api_teams():
+    return jsonify(TEAM_NAMES_ALL)
 
 @app.route("/api/team")
 def api_team():
@@ -293,7 +356,6 @@ def api_team():
             if cap is not None:  info["capacity"] = int(cap)
             if fill is not None: info["fill"] = max(0.0, min(float(fill), 1.0))
         return jsonify(info)
-    # fallback: echo back
     return jsonify({"team": name})
 
 @app.route("/api/predict", methods=["POST"])
@@ -319,7 +381,7 @@ def api_predict():
         x = np.array(vals, dtype=float).reshape(1, -1)
         pred = round(float(model.predict(x)[0]))
 
-        # Logging (non-blocking)
+        # Log (best-effort)
         try:
             os.makedirs("data", exist_ok=True)
             log_path = os.path.join("data", "predictions_log.csv")
@@ -347,9 +409,10 @@ def api_predict():
     except Exception as e:
         return jsonify({"error": f"{type(e).__name__}: {e}"}), 400
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)), debug=True)
-
 @app.route("/health")
 def health():
     return "ok", 200
+
+if __name__ == "__main__":
+    # Use PORT env (App Platform injects one) or default 8080 locally
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)), debug=True)

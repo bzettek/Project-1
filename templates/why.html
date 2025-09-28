@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why? | CFB Attendance Predictor</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="top-nav">
+    <div class="spacer">
+      <a class="nav-link" href="{{ url_for('how_page') }}">How?</a>
+    </div>
+    <a class="brand" href="{{ url_for('index') }}">CFB Attendance Predictor</a>
+    <div class="spacer">
+      <a class="nav-link" href="{{ url_for('why_page') }}">Why?</a>
+    </div>
+  </header>
+
+  <main class="container" style="min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;">
+    <section>
+      <h1 style="margin-bottom:0.5rem;">Why?</h1>
+      <p style="color:var(--muted);">Details coming soon.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="made-by">
+      <span class="pill">Made by</span> <strong>Brandon Zettek</strong>
+    </div>
+    <p>© <span id="yr"></span> CFB Attendance Predictor</p>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

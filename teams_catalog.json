@@ -1,0 +1,897 @@
+{
+  "teams": {
+    "alabama": {
+      "display": "Alabama",
+      "capacity": 101821,
+      "fill": 1.0,
+      "aliases": [
+        "Alabama",
+        "Bowling Green",
+        "Bowling Green State",
+        "Pitt",
+        "Pittsburgh",
+        "Texas San Antonio",
+        "Texas at San Antonio",
+        "UTSA",
+        "University of Pittsburgh"
+      ]
+    },
+    "arizona": {
+      "display": "Arizona",
+      "capacity": 57400,
+      "fill": 0.887439024,
+      "aliases": [
+        "Arizona",
+        "Arizona St.",
+        "Arizona State"
+      ]
+    },
+    "arkansas": {
+      "display": "Arkansas",
+      "capacity": 76212,
+      "fill": 0.982527778,
+      "aliases": [
+        "Arkansas"
+      ]
+    },
+    "arkansas state": {
+      "display": "Arkansas State",
+      "capacity": 30964,
+      "fill": 0.663482635,
+      "aliases": [
+        "Arkansas",
+        "Arkansas State",
+        "Colorado St.",
+        "Colorado State",
+        "Fresno St.",
+        "Fresno State",
+        "Ohio St.",
+        "Ohio State",
+        "Ohio State University",
+        "Oklahoma St.",
+        "Oklahoma State",
+        "The Ohio State University",
+        "Utah St.",
+        "Utah State",
+        "Washington St.",
+        "Washington State"
+      ]
+    },
+    "ball state": {
+      "display": "Ball State",
+      "capacity": 30964,
+      "fill": 0.3534170885,
+      "aliases": [
+        "Ball",
+        "Ball St.",
+        "Ball State"
+      ]
+    },
+    "baylor": {
+      "display": "Baylor",
+      "capacity": 50000,
+      "fill": 0.80294,
+      "aliases": [
+        "Baylor"
+      ]
+    },
+    "boise state": {
+      "display": "Boise State",
+      "capacity": 36387,
+      "fill": 0.986808476,
+      "aliases": [
+        "Boise",
+        "Boise St.",
+        "Boise State"
+      ]
+    },
+    "boston college": {
+      "display": "Boston College",
+      "capacity": 44500,
+      "fill": 0.900337079,
+      "aliases": [
+        "Boston",
+        "Boston College"
+      ]
+    },
+    "buffalo": {
+      "display": "Buffalo",
+      "capacity": 29013,
+      "fill": 0.572182465,
+      "aliases": [
+        "Buffalo"
+      ]
+    },
+    "byu": {
+      "display": "BYU",
+      "capacity": 65000,
+      "fill": 0.949432669,
+      "aliases": [
+        "BYU",
+        "Brigham Young",
+        "Brigham Young University",
+        "Byu"
+      ]
+    },
+    "california": {
+      "display": "California",
+      "capacity": 75028,
+      "fill": 0.772155601,
+      "aliases": [
+        "California"
+      ]
+    },
+    "clemson": {
+      "display": "Clemson",
+      "capacity": 81500,
+      "fill": 0.9844662580000001,
+      "aliases": [
+        "Clemson"
+      ]
+    },
+    "colorado": {
+      "display": "Colorado",
+      "capacity": 53750,
+      "fill": 0.896557586,
+      "aliases": [
+        "Colorado"
+      ]
+    },
+    "fiu": {
+      "display": "FIU",
+      "capacity": 20000,
+      "fill": 0.7572000000000001,
+      "aliases": [
+        "FIU",
+        "Fiu"
+      ]
+    },
+    "florida state": {
+      "display": "Florida State",
+      "capacity": 82300,
+      "fill": 0.967458184,
+      "aliases": [
+        "Florida",
+        "Florida State"
+      ]
+    },
+    "georgia state": {
+      "display": "Georgia State",
+      "capacity": 71228,
+      "fill": 0.197759308,
+      "aliases": [
+        "Georgia",
+        "Georgia State"
+      ]
+    },
+    "georgia tech": {
+      "display": "Georgia Tech",
+      "capacity": 55000,
+      "fill": 0.9115909090000001,
+      "aliases": [
+        "Georgia",
+        "Georgia Tech",
+        "VT",
+        "Virginia Tech"
+      ]
+    },
+    "hawaii": {
+      "display": "Hawaii",
+      "capacity": 50000,
+      "fill": 0.67353,
+      "aliases": [
+        "Hawaii"
+      ]
+    },
+    "illinois": {
+      "display": "Illinois",
+      "capacity": 70904,
+      "fill": 0.7437506,
+      "aliases": [
+        "Illinois"
+      ]
+    },
+    "indiana": {
+      "display": "Indiana",
+      "capacity": 52929,
+      "fill": 0.764205409,
+      "aliases": [
+        "Indiana"
+      ]
+    },
+    "iowa state": {
+      "display": "Iowa State",
+      "capacity": 61500,
+      "fill": 0.930163636,
+      "aliases": [
+        "Iowa",
+        "Iowa State"
+      ]
+    },
+    "kansas": {
+      "display": "Kansas",
+      "capacity": 50000,
+      "fill": 0.77428,
+      "aliases": [
+        "Kansas"
+      ]
+    },
+    "kansas state": {
+      "display": "Kansas State",
+      "capacity": 50300,
+      "fill": 0.9958618690000001,
+      "aliases": [
+        "Kansas",
+        "Kansas St.",
+        "Kansas State"
+      ]
+    },
+    "kent state": {
+      "display": "Kent State",
+      "capacity": 30520,
+      "fill": 0.495783112,
+      "aliases": [
+        "Kent",
+        "Kent State"
+      ]
+    },
+    "louisiana": {
+      "display": "Louisiana",
+      "capacity": 41426,
+      "fill": 0.546516129,
+      "aliases": [
+        "Louisiana"
+      ]
+    },
+    "louisiana tech": {
+      "display": "Louisiana Tech",
+      "capacity": 30600,
+      "fill": 0.628627451,
+      "aliases": [
+        "Louisiana",
+        "Louisiana Tech"
+      ]
+    },
+    "marshall": {
+      "display": "Marshall",
+      "capacity": 38227,
+      "fill": 0.6646019095,
+      "aliases": [
+        "Marshall"
+      ]
+    },
+    "memphis": {
+      "display": "Memphis",
+      "capacity": 62921,
+      "fill": 0.482193846,
+      "aliases": [
+        "Memphis"
+      ]
+    },
+    "miami oh": {
+      "display": "Miami (OH)",
+      "capacity": 30012,
+      "fill": 0.633966071,
+      "aliases": [
+        "Miami",
+        "Miami (FL)",
+        "Miami (Florida)",
+        "Miami (OH)",
+        "Miami (Ohio)"
+      ]
+    },
+    "michigan state": {
+      "display": "Michigan State",
+      "capacity": 75005,
+      "fill": 1.0,
+      "aliases": [
+        "Michigan",
+        "Michigan State",
+        "Michigan Wolverines",
+        "University of Michigan"
+      ]
+    },
+    "middle tennessee": {
+      "display": "Middle Tennessee",
+      "capacity": 30788,
+      "fill": 0.544416656,
+      "aliases": [
+        "Middle",
+        "Middle Tennessee"
+      ]
+    },
+    "missouri": {
+      "display": "Missouri",
+      "capacity": 71168,
+      "fill": 0.842411682,
+      "aliases": [
+        "Missouri"
+      ]
+    },
+    "nc state": {
+      "display": "NC State",
+      "capacity": 57583,
+      "fill": 0.984561416,
+      "aliases": [
+        "NC State",
+        "Nc",
+        "Nc State",
+        "North Carolina State"
+      ]
+    },
+    "nebraska": {
+      "display": "Nebraska",
+      "capacity": 87147,
+      "fill": 1.0,
+      "aliases": [
+        "Nebraska"
+      ]
+    },
+    "nevada": {
+      "display": "Nevada",
+      "capacity": 31545,
+      "fill": 0.635712609,
+      "aliases": [
+        "Nevada"
+      ]
+    },
+    "new mexico": {
+      "display": "New Mexico",
+      "capacity": 40094,
+      "fill": 0.682411938,
+      "aliases": [
+        "New",
+        "New Mexico"
+      ]
+    },
+    "northern illinois": {
+      "display": "Northern Illinois",
+      "capacity": 31000,
+      "fill": 0.667083333,
+      "aliases": [
+        "Northern",
+        "Northern Illinois"
+      ]
+    },
+    "northwestern": {
+      "display": "Northwestern",
+      "capacity": 47130,
+      "fill": 0.576342033,
+      "aliases": [
+        "Northwestern"
+      ]
+    },
+    "notre dame": {
+      "display": "Notre Dame",
+      "capacity": 80795,
+      "fill": 1.0,
+      "aliases": [
+        "Notre",
+        "Notre Dame"
+      ]
+    },
+    "ohio": {
+      "display": "Ohio",
+      "capacity": 24000,
+      "fill": 0.748291667,
+      "aliases": [
+        "Ohio"
+      ]
+    },
+    "oklahoma": {
+      "display": "Oklahoma",
+      "capacity": 83469,
+      "fill": 1.0,
+      "aliases": [
+        "Oklahoma"
+      ]
+    },
+    "ole miss": {
+      "display": "Ole Miss",
+      "capacity": 64038,
+      "fill": 0.956602839,
+      "aliases": [
+        "Mississippi",
+        "Ole",
+        "Ole Miss",
+        "University of Mississippi"
+      ]
+    },
+    "oregon state": {
+      "display": "Oregon State",
+      "capacity": 45674,
+      "fill": 0.958510312,
+      "aliases": [
+        "Oregon",
+        "Oregon Ducks",
+        "Oregon State",
+        "University of Oregon"
+      ]
+    },
+    "penn state": {
+      "display": "Penn State",
+      "capacity": 107282,
+      "fill": 0.9922913444999999,
+      "aliases": [
+        "Penn",
+        "Penn State"
+      ]
+    },
+    "rutgers": {
+      "display": "Rutgers",
+      "capacity": 52454,
+      "fill": 0.886328974,
+      "aliases": [
+        "Rutgers"
+      ]
+    },
+    "san diego state": {
+      "display": "San Diego State",
+      "capacity": 54000,
+      "fill": 0.5333703704999999,
+      "aliases": [
+        "San",
+        "San Diego St.",
+        "San Diego State",
+        "San Jose St.",
+        "San Jose State"
+      ]
+    },
+    "smu": {
+      "display": "SMU",
+      "capacity": 92100,
+      "fill": 0.553952226,
+      "aliases": [
+        "SMU",
+        "Smu",
+        "Southern Methodist",
+        "Southern Methodist University"
+      ]
+    },
+    "south alabama": {
+      "display": "South Alabama",
+      "capacity": 40646,
+      "fill": 0.39443270750000003,
+      "aliases": [
+        "South",
+        "South Alabama"
+      ]
+    },
+    "southern miss": {
+      "display": "Southern Miss",
+      "capacity": 36000,
+      "fill": 0.7871111115,
+      "aliases": [
+        "Southern",
+        "Southern Miss"
+      ]
+    },
+    "syracuse": {
+      "display": "Syracuse",
+      "capacity": 49550,
+      "fill": 0.772177338,
+      "aliases": [
+        "Syracuse"
+      ]
+    },
+    "texas aandm": {
+      "display": "Texas A&M",
+      "capacity": 106511,
+      "fill": 0.993596905,
+      "aliases": [
+        "Texas",
+        "Texas A and M",
+        "Texas A&M",
+        "Texas A&M University",
+        "Texas Aandm"
+      ]
+    },
+    "toledo": {
+      "display": "Toledo",
+      "capacity": 26248,
+      "fill": 0.7734494055000001,
+      "aliases": [
+        "Toledo"
+      ]
+    },
+    "troy": {
+      "display": "Troy",
+      "capacity": 30000,
+      "fill": 0.6675500000000001,
+      "aliases": [
+        "Troy"
+      ]
+    },
+    "ucf": {
+      "display": "UCF",
+      "capacity": 65438,
+      "fill": 0.761202921,
+      "aliases": [
+        "UCF",
+        "Ucf"
+      ]
+    },
+    "ucla": {
+      "display": "UCLA",
+      "capacity": 92542,
+      "fill": 0.700741285,
+      "aliases": [
+        "California-Los Angeles",
+        "UCLA",
+        "Ucla",
+        "University of California Los Angeles"
+      ]
+    },
+    "umass": {
+      "display": "UMass",
+      "capacity": 17000,
+      "fill": 0.596647059,
+      "aliases": [
+        "UMass",
+        "Umass"
+      ]
+    },
+    "usc": {
+      "display": "USC",
+      "capacity": 93607,
+      "fill": 0.818641304,
+      "aliases": [
+        "Southern California",
+        "USC",
+        "University of Southern California",
+        "Usc"
+      ]
+    },
+    "utep": {
+      "display": "UTEP",
+      "capacity": 51500,
+      "fill": 0.58023301,
+      "aliases": [
+        "UTEP",
+        "Utep"
+      ]
+    },
+    "virginia": {
+      "display": "Virginia",
+      "capacity": 61500,
+      "fill": 0.8256666665,
+      "aliases": [
+        "Virginia"
+      ]
+    },
+    "washington": {
+      "display": "Washington",
+      "capacity": 72500,
+      "fill": 0.93413524,
+      "aliases": [
+        "Washington"
+      ]
+    },
+    "west virginia": {
+      "display": "West Virginia",
+      "capacity": 63500,
+      "fill": 0.96445,
+      "aliases": [
+        "West",
+        "West Virginia"
+      ]
+    },
+    "western kentucky": {
+      "display": "Western Kentucky",
+      "capacity": 22113,
+      "fill": 0.7388866275,
+      "aliases": [
+        "Western",
+        "Western Kentucky"
+      ]
+    },
+    "wisconsin": {
+      "display": "Wisconsin",
+      "capacity": 82123,
+      "fill": 1.0,
+      "aliases": [
+        "Wisconsin"
+      ]
+    }
+  },
+  "alias_to_key": {
+    "Alabama": "alabama",
+    "Arizona": "arizona",
+    "Arkansas": "arkansas",
+    "Arkansas State": "arkansas state",
+    "Ball State": "ball state",
+    "Ball": "ball state",
+    "Baylor": "baylor",
+    "Boise State": "boise state",
+    "Boise": "boise state",
+    "Boston College": "boston college",
+    "Boston": "boston college",
+    "Buffalo": "buffalo",
+    "BYU": "byu",
+    "Byu": "byu",
+    "California": "california",
+    "Clemson": "clemson",
+    "Colorado": "colorado",
+    "FIU": "fiu",
+    "Fiu": "fiu",
+    "Florida State": "florida state",
+    "Florida": "florida state",
+    "Georgia State": "georgia state",
+    "Georgia": "georgia state",
+    "Georgia Tech": "georgia tech",
+    "Hawaii": "hawaii",
+    "Illinois": "illinois",
+    "Indiana": "indiana",
+    "Iowa State": "iowa state",
+    "Iowa": "iowa state",
+    "Kansas": "kansas",
+    "Kansas State": "kansas state",
+    "Kent State": "kent state",
+    "Kent": "kent state",
+    "Louisiana": "louisiana",
+    "Louisiana Tech": "louisiana tech",
+    "Marshall": "marshall",
+    "Memphis": "memphis",
+    "Miami (OH)": "miami oh",
+    "Miami": "miami oh",
+    "Michigan State": "michigan state",
+    "Michigan": "michigan state",
+    "Middle Tennessee": "middle tennessee",
+    "Middle": "middle tennessee",
+    "Missouri": "missouri",
+    "NC State": "nc state",
+    "Nc": "nc state",
+    "Nc State": "nc state",
+    "Nebraska": "nebraska",
+    "Nevada": "nevada",
+    "New Mexico": "new mexico",
+    "New": "new mexico",
+    "Northern Illinois": "northern illinois",
+    "Northern": "northern illinois",
+    "Northwestern": "northwestern",
+    "Notre Dame": "notre dame",
+    "Notre": "notre dame",
+    "Ohio": "ohio",
+    "Oklahoma": "oklahoma",
+    "Ole Miss": "ole miss",
+    "Ole": "ole miss",
+    "Oregon State": "oregon state",
+    "Oregon": "oregon state",
+    "Penn State": "penn state",
+    "Penn": "penn state",
+    "Rutgers": "rutgers",
+    "San Diego State": "san diego state",
+    "San": "san diego state",
+    "SMU": "smu",
+    "Smu": "smu",
+    "South Alabama": "south alabama",
+    "South": "south alabama",
+    "Southern Miss": "southern miss",
+    "Southern": "southern miss",
+    "Syracuse": "syracuse",
+    "Texas A&M": "texas aandm",
+    "Texas": "texas aandm",
+    "Texas Aandm": "texas aandm",
+    "Toledo": "toledo",
+    "Troy": "troy",
+    "UCF": "ucf",
+    "Ucf": "ucf",
+    "UCLA": "ucla",
+    "Ucla": "ucla",
+    "UMass": "umass",
+    "Umass": "umass",
+    "USC": "usc",
+    "Usc": "usc",
+    "UTEP": "utep",
+    "Utep": "utep",
+    "Virginia": "virginia",
+    "Washington": "washington",
+    "West Virginia": "west virginia",
+    "West": "west virginia",
+    "Western Kentucky": "western kentucky",
+    "Western": "western kentucky",
+    "Wisconsin": "wisconsin",
+    "Ohio State": "arkansas state",
+    "Ohio St.": "arkansas state",
+    "The Ohio State University": "arkansas state",
+    "Ohio State University": "arkansas state",
+    "Oregon Ducks": "oregon state",
+    "University of Oregon": "oregon state",
+    "Michigan Wolverines": "michigan state",
+    "University of Michigan": "michigan state",
+    "Texas A and M": "texas aandm",
+    "Texas A&M University": "texas aandm",
+    "Mississippi": "ole miss",
+    "University of Mississippi": "ole miss",
+    "Southern California": "usc",
+    "University of Southern California": "usc",
+    "University of California Los Angeles": "ucla",
+    "California-Los Angeles": "ucla",
+    "Pitt": "alabama",
+    "Pittsburgh": "alabama",
+    "University of Pittsburgh": "alabama",
+    "North Carolina State": "nc state",
+    "UTSA": "alabama",
+    "Texas San Antonio": "alabama",
+    "Texas at San Antonio": "alabama",
+    "Brigham Young": "byu",
+    "Brigham Young University": "byu",
+    "Southern Methodist": "smu",
+    "Southern Methodist University": "smu",
+    "Arizona State": "arizona",
+    "Arizona St.": "arizona",
+    "Colorado State": "arkansas state",
+    "Colorado St.": "arkansas state",
+    "Fresno State": "arkansas state",
+    "Fresno St.": "arkansas state",
+    "Kansas St.": "kansas state",
+    "Oklahoma State": "arkansas state",
+    "Oklahoma St.": "arkansas state",
+    "San Diego St.": "san diego state",
+    "San Jose State": "san diego state",
+    "San Jose St.": "san diego state",
+    "Boise St.": "boise state",
+    "Washington State": "arkansas state",
+    "Washington St.": "arkansas state",
+    "Utah State": "arkansas state",
+    "Utah St.": "arkansas state",
+    "Ball St.": "ball state",
+    "Bowling Green": "alabama",
+    "Bowling Green State": "alabama",
+    "Miami (FL)": "miami oh",
+    "Miami (Florida)": "miami oh",
+    "Miami (Ohio)": "miami oh",
+    "Virginia Tech": "georgia tech",
+    "VT": "georgia tech"
+  },
+  "public_names": [
+    "Alabama",
+    "Arizona",
+    "Arizona St.",
+    "Arizona State",
+    "Arkansas",
+    "Arkansas State",
+    "BYU",
+    "Ball",
+    "Ball St.",
+    "Ball State",
+    "Baylor",
+    "Boise",
+    "Boise St.",
+    "Boise State",
+    "Boston",
+    "Boston College",
+    "Bowling Green",
+    "Bowling Green State",
+    "Brigham Young",
+    "Brigham Young University",
+    "Buffalo",
+    "Byu",
+    "California",
+    "California-Los Angeles",
+    "Clemson",
+    "Colorado",
+    "Colorado St.",
+    "Colorado State",
+    "FIU",
+    "Fiu",
+    "Florida",
+    "Florida State",
+    "Fresno St.",
+    "Fresno State",
+    "Georgia",
+    "Georgia State",
+    "Georgia Tech",
+    "Hawaii",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Iowa State",
+    "Kansas",
+    "Kansas St.",
+    "Kansas State",
+    "Kent",
+    "Kent State",
+    "Louisiana",
+    "Louisiana Tech",
+    "Marshall",
+    "Memphis",
+    "Miami",
+    "Miami (FL)",
+    "Miami (Florida)",
+    "Miami (OH)",
+    "Miami (Ohio)",
+    "Michigan",
+    "Michigan State",
+    "Michigan Wolverines",
+    "Middle",
+    "Middle Tennessee",
+    "Mississippi",
+    "Missouri",
+    "NC State",
+    "Nc",
+    "Nc State",
+    "Nebraska",
+    "Nevada",
+    "New",
+    "New Mexico",
+    "North Carolina State",
+    "Northern",
+    "Northern Illinois",
+    "Northwestern",
+    "Notre",
+    "Notre Dame",
+    "Ohio",
+    "Ohio St.",
+    "Ohio State",
+    "Ohio State University",
+    "Oklahoma",
+    "Oklahoma St.",
+    "Oklahoma State",
+    "Ole",
+    "Ole Miss",
+    "Oregon",
+    "Oregon Ducks",
+    "Oregon State",
+    "Penn",
+    "Penn State",
+    "Pitt",
+    "Pittsburgh",
+    "Rutgers",
+    "SMU",
+    "San",
+    "San Diego St.",
+    "San Diego State",
+    "San Jose St.",
+    "San Jose State",
+    "Smu",
+    "South",
+    "South Alabama",
+    "Southern",
+    "Southern California",
+    "Southern Methodist",
+    "Southern Methodist University",
+    "Southern Miss",
+    "Syracuse",
+    "Texas",
+    "Texas A and M",
+    "Texas A&M",
+    "Texas A&M University",
+    "Texas Aandm",
+    "Texas San Antonio",
+    "Texas at San Antonio",
+    "The Ohio State University",
+    "Toledo",
+    "Troy",
+    "UCF",
+    "UCLA",
+    "UMass",
+    "USC",
+    "UTEP",
+    "UTSA",
+    "Ucf",
+    "Ucla",
+    "Umass",
+    "University of California Los Angeles",
+    "University of Michigan",
+    "University of Mississippi",
+    "University of Oregon",
+    "University of Pittsburgh",
+    "University of Southern California",
+    "Usc",
+    "Utah St.",
+    "Utah State",
+    "Utep",
+    "VT",
+    "Virginia",
+    "Virginia Tech",
+    "Washington",
+    "Washington St.",
+    "Washington State",
+    "West",
+    "West Virginia",
+    "Western",
+    "Western Kentucky",
+    "Wisconsin"
+  ]
+}
