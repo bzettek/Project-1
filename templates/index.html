@@ -8,13 +8,11 @@
 </head>
 <body>
   <header class="top-nav">
-    <div class="spacer">
+    <a class="brand" href="{{ url_for('index') }}">CFB Attendance Predictor</a>
+    <nav class="top-links" aria-label="Primary">
       <a class="nav-link" href="{{ url_for('how_page') }}">How?</a>
-    </div>
-    <a class="brand" href="{{ url_for('index') }}">Home</a>
-    <div class="spacer">
       <a class="nav-link" href="{{ url_for('why_page') }}">Why?</a>
-    </div>
+    </nav>
   </header>
 
   <header class="site-header">
