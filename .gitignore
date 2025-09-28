@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.ipynb
+*.log
+*.pkl
+data/predictions_log.csv
+.venv/
+__pycache__/
+*.ipynb
+*.log
+*.pkl
+data/predictions_log.csv
