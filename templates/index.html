@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CFB Attendance Predictor</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<style>label.full{grid-column:1/-1}</style>
+</head>
+<body>
+<header class="nav"><a class="brand" href="{{ url_for('index') }}">CFB Attendance</a></header>
+
+<main class="container">
+<!-- Centered logo -->
+<div class="logo-wrap">
+  <img
+    src="{{ url_for('static', filename='cfbLogo.png') }}"
+    alt="CFB Attendance"
+    class="hero-logo"
+    loading="lazy"
+    decoding="async"
+  >
+</div>
+  <h1>Predict Attendance</h1>
+
+<h2>Home Team (auto-fill)</h2>
+<div class="grid">
+  <label class="full">
+    <span>Home Team</span>
+    <!-- placeholder shows "Notre Dame" but value is empty -->
+    <input id="homeTeam" list="teamList" placeholder=" Notre Dame— example">
+    <datalist id="teamList"></datalist>
+  </label>
+</div>
+
+<h2>Model Inputs</h2>
+<p>Order: <code>capacity</code>, <code>fill (0–1)</code>, <code>wins</code>, <code>losses</code>, <code>prcp</code></p>
+<div class="grid">
+  <label><span>Capacity</span>
+    <input id="cap" type="number" placeholder="80795">    <!-- example only -->
+  </label>
+  <label><span>Fill (0–1)</span>
+    <input id="fill" type="number" step="0.001" min="0" max="1" placeholder="1.000">
+  </label>
+  <label><span>Wins</span>
+    <input id="wins" type="number" placeholder="5">
+  </label>
+  <label><span>Losses</span>
+    <input id="losses" type="number" placeholder="2">
+  </label>
+  <label><span>Precip</span>
+    <input id="prcp" type="number" step="0.01" placeholder="0.10">
+  </label>
+</div>
+
+  <h2>Context (optional)</h2>
+  <div class="grid">
+<label>
+  <span>Ranked Status</span>
+  <select id="rankedStatus">
+    <option value="" selected hidden>Home ranked — example</option>
+    <option value="neither">Neither ranked</option>
+    <option value="home">Only home ranked</option>
+    <option value="away">Only away ranked</option>
+    <option value="both">Both ranked</option>
+  </select>
+</label>
+
+<label>
+  <span>Rivalry?</span>
+  <select id="rivalry">
+    <option value="" selected hidden>Yes — example</option>
+    <option value="false">No</option>
+    <option value="true">Yes</option>
+  </select>
+</label>
+
+<label>
+  <span>Kickoff Window</span>
+  <select id="kickoffWindow">
+    <option value="" selected hidden>Night — example</option>
+    <option value="morning">Morning</option>
+    <option value="afternoon">Afternoon</option>
+    <option value="night">Night</option>
+  </select>
+</label>
+  </div>
+
+  <button id="btn">Predict</button>
+  <div id="err" class="err" style="display:none"></div>
+  <div id="out" class="card" style="display:none"></div>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="made-by">
+      <span class="pill">Made by</span> <strong>Brandon Zettek</strong>
+    </div>
+  </div>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+
+/* ===================== Placeholders (clear on focus) ===================== */
+function setupInputPlaceholder(el, example) {
+  el.placeholder = example;
+  el.addEventListener('focus', () => { if (!el.value) el.placeholder = ''; });
+  el.addEventListener('blur',  () => { if (!el.value) el.placeholder = example; });
+}
+function setupSelectPlaceholder(selectEl, hintText) {
+  let hintOpt = selectEl.querySelector('option[value=""]');
+  if (!hintOpt) {
+    hintOpt = document.createElement('option');
+    hintOpt.value = '';
+    hintOpt.hidden = true;
+    hintOpt.selected = true;
+    selectEl.prepend(hintOpt);
+  }
+  hintOpt.textContent = hintText;
+  function blankHint(){ hintOpt.textContent = ''; }
+  function restoreHint(){ hintOpt.textContent = hintText; }
+  selectEl.addEventListener('focus',    () => { if (selectEl.value === '') blankHint(); });
+  selectEl.addEventListener('mousedown',() => { if (selectEl.value === '') blankHint(); });
+  selectEl.addEventListener('blur',     () => { if (selectEl.value === '') restoreHint(); });
+}
+// Wire placeholders
+setupInputPlaceholder($('homeTeam'), 'Notre Dame - example');
+setupInputPlaceholder($('cap'),      '80795');
+setupInputPlaceholder($('fill'),     '1.000');
+setupInputPlaceholder($('wins'),     '5');
+setupInputPlaceholder($('losses'),   '2');
+setupInputPlaceholder($('prcp'),     '0.10');
+setupSelectPlaceholder($('rankedStatus'),  'Home ranked');
+setupSelectPlaceholder($('rivalry'),       'Yes');
+setupSelectPlaceholder($('kickoffWindow'), 'Night');
+
+
+// === Clear ALL placeholders/hints on first user input ===
+let clearedHints = false;
+function clearAllHintsOnce() {
+  if (clearedHints) return;
+  clearedHints = true;
+
+  // inputs: remove placeholder text everywhere
+  ['homeTeam','cap','fill','wins','losses','prcp'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.placeholder = '';
+  });
+
+  // selects: blank the hint option (value="")
+  ['rankedStatus','rivalry','kickoffWindow'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const hint = sel.querySelector('option[value=""]');
+    if (hint) hint.textContent = '';
+  });
+}
+
+// Hook EVERY relevant field:
+// - text/number inputs: on any typing
+['homeTeam','cap','fill','wins','losses','prcp'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('input', clearAllHintsOnce);
+});
+
+// - selects: on any selection
+['rankedStatus','rivalry','kickoffWindow'].forEach(id => {
+  const sel = document.getElementById(id);
+  if (!sel) return;
+  sel.addEventListener('change', clearAllHintsOnce);
+  // also clear if they focus the select and immediately open it
+  sel.addEventListener('mousedown', clearAllHintsOnce);
+  sel.addEventListener('focus', clearAllHintsOnce);
+});
+
+
+/* ===================== Team list + instant autofill ===================== */
+// Load ALL teams for the datalist (includes aliases like "Michigan", "Oregon")
+(async () => {
+  try {
+    const res = await fetch('/api/teams');
+    const teams = await res.json();
+    $('teamList').innerHTML = teams.map(t => `<option value="${t}">`).join('');
+  } catch {}
+})();
+
+let aborter = null;
+function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+
+async function fetchTeamNow(name){
+  if (!name) { $('cap').value=''; $('fill').value=''; return; }
+  try {
+    if (aborter) aborter.abort();
+    aborter = new AbortController();
+    const res = await fetch('/api/team?name=' + encodeURIComponent(name), { signal: aborter.signal });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data && data.team) {
+      if (Number.isFinite(+data.capacity)) $('cap').value = Number(data.capacity);
+      if (Number.isFinite(+data.fill))     $('fill').value = clamp01(+data.fill).toFixed(3);
+    }
+  } catch {}
+}
+
+const homeInput = $('homeTeam');
+// Fire on typing, datalist selection, and Enter/Tab — no blur needed
+homeInput.addEventListener('input',  () => fetchTeamNow(homeInput.value.trim()));
+homeInput.addEventListener('change', () => fetchTeamNow(homeInput.value.trim()));
+homeInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === 'Tab') setTimeout(() => fetchTeamNow(homeInput.value.trim()), 0);
+});
+
+/* ===================== Validation + Predict ===================== */
+function clearError(){
+  const err = $('err');
+  if (!err) return;
+  err.style.display='none';
+  err.textContent='';
+  ['cap','fill','wins','losses','prcp'].forEach(id => $(id).classList.remove('invalid'));
+}
+function showError(msg, ids=[]){
+  let err = $('err');
+  if (!err) {
+    err = document.createElement('div');
+    err.id = 'err';
+    err.className = 'err';
+    $('btn').insertAdjacentElement('afterend', err);
+  }
+  err.textContent = msg;
+  err.style.display = 'block';
+  ids.forEach(id => $(id).classList.add('invalid'));
+  err.scrollIntoView({behavior:'smooth', block:'center'});
+}
+function isNum(v){ return v !== '' && !Number.isNaN(+v); }
+
+$('btn').addEventListener('click', async () => {
+  clearError();
+
+  const fields = {
+    cap: $('cap').value.trim(),
+    fill: $('fill').value.trim(),
+    wins: $('wins').value.trim(),
+    losses: $('losses').value.trim(),
+    prcp: $('prcp').value.trim()
+  };
+
+  // Require all 5 model inputs (Home/Context optional)
+  const missing = Object.entries(fields).filter(([_,v]) => v === '').map(([k]) => k);
+  if (missing.length){
+    return showError('Please fill in all required model inputs: capacity, fill, wins, losses, and precip.', missing);
+  }
+  const nonNums = Object.entries(fields).filter(([_,v]) => !isNum(v)).map(([k]) => k);
+  if (nonNums.length){
+    return showError('All model inputs must be numbers.', nonNums);
+  }
+
+  const capV = +fields.cap, fillV = +fields.fill, winsV = +fields.wins, lossesV = +fields.losses, prcpV = +fields.prcp;
+  const bad = [];
+  if (!(capV > 0)) bad.push('cap');
+  if (!(fillV >= 0 && fillV <= 1)) bad.push('fill');
+  if (!(winsV >= 0)) bad.push('wins');
+  if (!(lossesV >= 0)) bad.push('losses');
+  if (!(prcpV >= 0)) bad.push('prcp');
+  if (bad.length){
+    return showError('Check input ranges: capacity>0, fill 0–1, wins/losses ≥ 0, precip ≥ 0.', bad);
+  }
+
+  // Build extras (optional)
+  const ranked = $('rankedStatus').value || null;
+  const rivalryRaw = $('rivalry').value;              // '' | 'true' | 'false'
+  const rivalry = rivalryRaw === '' ? null : (rivalryRaw === 'true');
+  const kickoff = $('kickoffWindow').value || null;
+
+  const vals = [capV, fillV, winsV, lossesV, prcpV];
+  const extras = {
+    homeTeam: homeInput.value || null,
+    rankedStatus: ranked,
+    rivalry: rivalry,
+    kickoffWindow: kickoff
+  };
+
+  // Predict
+  const btn = $('btn');
+  btn.disabled = true; btn.textContent = 'Predicting…';
+  try{
+    const res = await fetch('/api/predict', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ features: vals, extras })
+    });
+    const data = await res.json();
+    if (!res.ok || data.error){
+      showError(data.error || 'Prediction failed. Try again.');
+      return;
+    }
+    const out = $('out'); out.style.display='block';
+    out.innerHTML = `
+      <h3>Predicted attendance: ${Number(data.prediction).toLocaleString()}</h3>
+      <div style="opacity:.85">
+        ${extras.homeTeam ? `<div><strong>${extras.homeTeam}</strong></div>` : ''}
+        ${extras.rankedStatus ? `<div>Ranked: ${extras.rankedStatus}</div>` : ''}
+        ${extras.rivalry !== null ? `<div>Rivalry: ${extras.rivalry ? 'Yes' : 'No'}</div>` : ''}
+        ${extras.kickoffWindow ? `<div>Kickoff: ${extras.kickoffWindow}</div>` : ''}
+      </div>`;
+  } catch (e){
+    showError('Network error. Please try again.');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Predict';
+  }
+});
+</script>
+</body>
+</html>

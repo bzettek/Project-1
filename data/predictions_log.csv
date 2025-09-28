@@ -1,0 +1,8 @@
+ts,capacity,fill,wins,losses,prcp,prediction,user_ip,homeTeam,rankedStatus,rivalry,kickoffWindow
+1759081684,77622,1,0,0,0,77364,127.0.0.1,Notre Dame,neither,False,morning
+1759081748,78500,0.762,0,0,0,58749,127.0.0.1,USC,neither,False,morning
+1759082818,45674.0,0.959,0.0,0.0,0.0,43376,127.0.0.1,Oregon State,neither,False,morning
+1759082841,0.0,0.0,0.0,0.0,0.0,2562,127.0.0.1,,neither,False,morning
+1759083599,0.0,0.0,0.0,0.0,0.0,2562,127.0.0.1,,,,
+1759084045,82300.0,0.967,0.0,0.0,0.0,79243,127.0.0.1,Florida,,,
+1759084136,24000.0,0.748,5.0,3.0,4.0,17994,127.0.0.1,Ohio,,,

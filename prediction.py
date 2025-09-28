@@ -1,31 +1,36 @@
-from sklearn import datasets
+import os, json, numpy as np
 from joblib import load
-import numpy as np
-import json
 
-#load the model
+MODEL_PATH = os.getenv("MODEL_PATH", "new_regressor_model.pkl")
+METRICS_PATH = os.getenv("METRICS_PATH", "model_metrics.json")
+model = load(MODEL_PATH)
 
-my_model = load('regressor_model.pkl')
+# The model expects 5 features, in this order:
+# [cap_unified, fill_unified, Current Wins, Current Losses, PRCP]
+EXPECTED = 5
 
-
-#iris_data = datasets.load_iris()
-#class_names = iris_data.target_names
+def _ok(payload): return {"model": str(payload)}
+def _err(msg, code=400): return {"model": f"ERROR: {msg}"}, code
 
 def my_prediction(id):
-    dummy = np.array(id)
-    dummyT = dummy.reshape(1,-1)
-    prediction = my_model.predict(dummyT)
-    prediction = str(prediction)
-    name_str = json.dumps(prediction)
-    stringg = [name_str]
-    return stringg
-    
+    try:
+        if not isinstance(id, (list, tuple)):
+            return _err("Send comma-separated numbers in the path.")
+        vals = [float(v) for v in id]
+        if len(vals) != EXPECTED:
+            return _err(f"Expected {EXPECTED} numbers but got {len(vals)}. "
+                        f"Order: [cap_unified, fill_unified, wins, losses, prcp]")
+        X = np.array(vals, dtype=float).reshape(1, -1)
+        y = float(model.predict(X)[0])
+        return _ok(round(y))
+    except Exception as e:
+        return _err(f"{type(e).__name__}: {e}", 400)
+
 def my_meteric():
-    val = 176.66
-    prediction = str(val)
-    name_str = json.dumps(prediction)
-    rmse = [name_str]
-    return rmse
-    
-    
-    
+    try:
+        if os.path.exists(METRICS_PATH):
+            with open(METRICS_PATH) as f: m = json.load(f)
+            return _ok(json.dumps(m))
+        return _ok("No metrics file found.")
+    except Exception as e:
+        return _err(f"{type(e).__name__}: {e}", 400)

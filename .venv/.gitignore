@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.ipynb
+data/predictions_log.csv
+new_regressor_model.joblib
