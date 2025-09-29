@@ -239,6 +239,67 @@ input:focus,select:focus{
 .story-block p:last-child{margin-bottom:0;}
 
 .site-footer{color:var(--muted);text-align:center;padding:24px 12px 36px}
+.fill-note{margin-top:10px;font-size:.85rem;color:var(--muted);} .fill-note a{color:var(--brand);text-decoration:underline;}
+
+.label-line{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.label-line label{margin:0;}
+
+.help-tip{margin-left:12px;display:inline-flex;align-items:center;gap:6px;}
+.help-tip .tip-trigger{
+  padding:3px 10px;
+  font-size:.8rem;
+  font-weight:600;
+  background:rgba(96,165,250,.1);
+  color:var(--text);
+  border:1px solid rgba(148,163,184,.4);
+  border-radius:999px;
+  cursor:pointer;
+  transition:background .2s ease, color .2s ease, border-color .2s ease;
+}
+.help-tip .tip-trigger:hover,
+.help-tip .tip-trigger:focus-visible{
+  background:rgba(96,165,250,.18);
+  border-color:rgba(96,165,250,.45);
+  outline:none;
+}
+.help-tip .tip-content{max-width:24rem;}
+
+.tip-link{
+  display:inline-flex;
+  align-items:center;
+  margin-left:8px;
+  gap:6px;
+  padding-bottom:0;
+  position:relative;
+}
+.tip-link .tip-trigger{
+  font-size:.85rem;
+  font-weight:600;
+  padding:0;
+  background:none;
+  border:none;
+  color:var(--brand);
+  text-decoration:underline;
+  cursor:pointer;
+}
+.tip-link .tip-trigger:hover,
+.tip-link .tip-trigger:focus-visible{
+  text-decoration:none;
+}
+.tip-link .tip-content{
+  max-width:22rem;
+}
+.tip-link a{
+  display:inline-block;
+  margin-top:0.5rem;
+  color:var(--brand);
+  text-decoration:underline;
+}
 
 /* Alerts */
 .alert{
@@ -317,4 +378,25 @@ input[type=number]{
   font-size:.75rem; text-transform:uppercase; letter-spacing:.06em;
   padding:.2rem .5rem; border:1px solid var(--border);
   border-radius:999px; margin-right:.4rem; color:var(--muted);
+}
+.fill-help{
+  margin-left:12px;
+  padding:4px 10px;
+  font-size:.82rem;
+  font-weight:600;
+  background:rgba(96,165,250,.18);
+  color:var(--brand);
+  border:1px solid rgba(96,165,250,.35);
+  border-radius:999px;
+  transition:background .2s ease, color .2s ease;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.fill-help:hover,
+.fill-help:focus-visible{
+  background:rgba(96,165,250,.28);
+  outline:none;
+  color:var(--brand);
 }

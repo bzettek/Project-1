@@ -62,14 +62,26 @@
 
         <!-- Fill rate -->
         <div class="field">
-          <label class="with-tip" for="fill">
-            Fill rate
-            <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What is Fill rate?">?</span>
-            <span class="tip-content" role="tooltip">
-              <strong>Fill rate</strong> = average home attendance ÷ capacity over recent seasons.
-              Enter a decimal between <code>0.00</code> and <code>1.00</code> (e.g., <code>0.92</code>).
+          <div class="label-line">
+            <label class="with-tip" for="fill">
+              Fill rate
+              <span class="tip-icon" tabindex="0" aria-expanded="false" aria-label="What is Fill rate?">?</span>
+              <span class="tip-content" role="tooltip">
+                <strong>Fill rate</strong> = average home attendance ÷ capacity over recent seasons.
+                Enter a decimal between <code>0.00</code> and <code>1.00</code> (e.g., <code>0.92</code>).
+              </span>
+            </label>
+            <span class="with-tip help-tip">
+              <button type="button" class="tip-trigger" aria-expanded="false" aria-label="Need help finding the fill rate?">
+                Need help finding fill rate?
+              </button>
+              <span class="tip-content" role="tooltip">
+                <strong>Capacity percent → decimal</strong><br />
+                Find the program’s <em>capacity percent</em> in the D1.ticker attendance trends report, then divide by 100 before entering it here. Example: <code>92%</code> → <code>0.92</code>.<br />
+                <a href="https://www.d1ticker.com/2024-fbs-attendance-trends/" target="_blank" rel="noopener">Open the reference site ↗</a>
+              </span>
             </span>
-          </label>
+          </div>
           <input id="fill" name="fill" type="number" step="0.01" min="0" max="1"
                  placeholder="0.92" />
         </div>
@@ -193,7 +205,7 @@
   <script>
     // -------------------------- Tooltip tap support --------------------------
     document.addEventListener('DOMContentLoaded', () => {
-      const icons = document.querySelectorAll('.tip-icon');
+      const triggers = document.querySelectorAll('.tip-icon, .tip-trigger');
       const tips = document.querySelectorAll('.tip-content');
 
       const closeAllTips = () => {
@@ -201,26 +213,28 @@
           wrapper.dataset.open = 'false';
           wrapper.classList.remove('tip-open');
         });
-        document.querySelectorAll('.tip-icon[aria-expanded="true"]').forEach(trigger => {
+        document.querySelectorAll('.tip-icon[aria-expanded="true"], .tip-trigger[aria-expanded="true"]').forEach(trigger => {
           trigger.setAttribute('aria-expanded', 'false');
         });
       };
 
-      icons.forEach(icon => {
-        const wrapper = icon.closest('.with-tip');
-        icon.setAttribute('role', 'button');
+      triggers.forEach(trigger => {
+        const wrapper = trigger.closest('.with-tip');
+        if (trigger.tagName !== 'BUTTON') {
+          trigger.setAttribute('role', 'button');
+        }
         if (wrapper) {
           wrapper.dataset.open = 'false';
           wrapper.classList.remove('tip-open');
         }
 
-        icon.addEventListener('click', (e) => {
+        trigger.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          const wasOpen = icon.getAttribute('aria-expanded') === 'true';
+          const wasOpen = trigger.getAttribute('aria-expanded') === 'true';
           closeAllTips();
           if (!wasOpen) {
-            icon.setAttribute('aria-expanded', 'true');
+            trigger.setAttribute('aria-expanded', 'true');
             if (wrapper) {
               wrapper.dataset.open = 'true';
               wrapper.classList.add('tip-open');
@@ -228,17 +242,19 @@
           }
         });
 
-        icon.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            icon.click();
-          }
-        });
-        icon.addEventListener('mousedown', (e) => {
-          if (e.button === 0) {
-            e.preventDefault();
-          }
-        });
+        if (trigger.tagName !== 'BUTTON') {
+          trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              trigger.click();
+            }
+          });
+          trigger.addEventListener('mousedown', (e) => {
+            if (e.button === 0) {
+              e.preventDefault();
+            }
+          });
+        }
       });
 
       tips.forEach(content => {
