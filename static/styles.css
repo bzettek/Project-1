@@ -204,6 +204,40 @@ input:focus,select:focus{
 .result-title{color:var(--muted);font-size:.95rem;margin-bottom:2px}
 .result-value{font-size:2rem;font-weight:800}
 
+.why-container{
+  min-height:60vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:48px 16px;
+}
+.why-copy{
+  max-width:720px;
+  text-align:center;
+}
+.why-copy h1{
+  margin-bottom:0.75rem;
+  font-size:2.2rem;
+  font-weight:800;
+}
+.why-copy .lead{
+  color:var(--muted);
+  margin-bottom:1.75rem;
+}
+.story-block{
+  background:rgba(15,23,42,.65);
+  border:1px solid rgba(96,165,250,.25);
+  border-radius:16px;
+  padding:24px;
+  text-align:left;
+  line-height:1.65;
+}
+.story-block p{
+  margin:0 0 1em;
+  color:var(--text);
+}
+.story-block p:last-child{margin-bottom:0;}
+
 .site-footer{color:var(--muted);text-align:center;padding:24px 12px 36px}
 
 /* Alerts */
