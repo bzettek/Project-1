@@ -1,13 +1,13 @@
 {
   "holdout": {
-    "rmse": 2107.7259565039776,
-    "mae": 1188.7695639229314,
-    "r2": 0.9927049365778673
+    "rmse": 717.5524286898079,
+    "mae": 340.69788413888335,
+    "r2": 0.9991545108054103
   },
   "cv_mean": {
-    "rmse": 1934.5362492212203,
-    "mae": 1155.4491680701456,
-    "r2": 0.9940571477101198
+    "rmse": 783.1826070721834,
+    "mae": 342.3188820155393,
+    "r2": 0.9990218467452809
   },
   "features_order": [
     "cap_unified",
@@ -16,7 +16,7 @@
     "Current Losses",
     "PRCP"
   ],
-  "model": "HistGradientBoostingRegressor",
+  "model": "RandomForestRegressor",
   "random_state": 42,
   "n_samples": 6672
 }
