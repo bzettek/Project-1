@@ -18,7 +18,7 @@ a:hover{text-decoration:underline}
 
 .top-nav{
   display:grid;
-  grid-auto-flow:column;
+  grid-template-columns:auto auto auto;
   align-items:center;
   justify-content:center;
   gap:clamp(18px, 5vw, 64px);
@@ -28,6 +28,7 @@ a:hover{text-decoration:underline}
   width:100%;
 }
 .top-nav .brand{
+  justify-self:center;
   font-size:1.08rem;
   font-weight:700;
   color:var(--text);
@@ -55,22 +56,25 @@ a:hover{text-decoration:underline}
   text-decoration:none;
 }
 
-.nav-link-how{text-align:right;}
-.nav-link-why{text-align:left;}
+.nav-link-how{
+  text-align:right;
+  justify-self:end;
+}
+.nav-link-why{
+  text-align:left;
+  justify-self:start;
+}
 
 @media (max-width:640px){
   .top-nav{
-    grid-auto-flow:row;
-    justify-items:center;
-    gap:10px;
+    grid-template-columns:auto auto auto;
+    column-gap:12px;
     padding:14px 16px;
   }
-  .top-nav .brand{font-size:1rem;text-align:center;}
+  .top-nav .brand{font-size:.98rem;text-align:center;}
   .top-nav .nav-link{font-size:.85rem;}
-  .nav-link-how,
-  .nav-link-why{
-    text-align:center;
-  }
+  .nav-link-how{justify-self:end;text-align:right;}
+  .nav-link-why{justify-self:start;text-align:left;}
 
   .container{padding:14px 12px 80px;}
   .card{padding:18px 16px;}

@@ -379,7 +379,24 @@ def api_predict():
         vals[1] = max(0.0, min(vals[1], 1.0))
 
         x = np.array(vals, dtype=float).reshape(1, -1)
-        pred = round(float(model.predict(x)[0]))
+        raw_pred = float(model.predict(x)[0])
+
+        capacity_input = max(0.0, vals[0])
+        prcp_input = max(0.0, vals[4])
+
+        # Apply light precipitation penalty to respect expected downturn on wet days
+        if prcp_input > 0:
+            damp_factor = max(0.0, 1.0 - min(prcp_input, 1.5) * 0.08)
+            raw_pred *= damp_factor
+
+        # Reward positive records (more wins vs losses) a bit more aggressively
+        net_record = vals[2] - vals[3]
+        if net_record > 0:
+            raw_pred *= (1.0 + min(net_record * 0.025, 0.30))
+        elif net_record < 0:
+            raw_pred *= max(0.0, 1.0 - min(abs(net_record) * 0.04, 0.45))
+
+        pred = int(round(max(0.0, min(raw_pred, capacity_input))))
 
         # Log (best-effort)
         try:
