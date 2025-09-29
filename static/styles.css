@@ -10,19 +10,21 @@
 }
 
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+body{overscroll-behavior-y:contain;}
 a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 
 .top-nav{
-  display:flex;
+  display:grid;
+  grid-auto-flow:column;
   align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  padding:18px 24px;
+  justify-content:center;
+  gap:clamp(18px, 5vw, 64px);
+  padding:18px 28px;
   background:rgba(10,16,30,.85);
   border-bottom:1px solid var(--border);
-  gap:18px;
   width:100%;
 }
 .top-nav .brand{
@@ -36,12 +38,6 @@ a:hover{text-decoration:underline}
 .top-nav .brand:focus-visible{
   text-decoration:none;
   color:var(--text);
-}
-.top-links{
-  display:flex;
-  align-items:center;
-  gap:18px;
-  flex-wrap:wrap;
 }
 .top-nav .nav-link{
   color:var(--muted);
@@ -59,20 +55,30 @@ a:hover{text-decoration:underline}
   text-decoration:none;
 }
 
-@media (max-width:900px){
-  .top-links{gap:14px;}
-}
+.nav-link-how{text-align:right;}
+.nav-link-why{text-align:left;}
 
 @media (max-width:640px){
-  .top-nav{flex-direction:column;align-items:center;padding:14px 16px;gap:12px;}
+  .top-nav{
+    grid-auto-flow:row;
+    justify-items:center;
+    gap:10px;
+    padding:14px 16px;
+  }
   .top-nav .brand{font-size:1rem;text-align:center;}
-  .top-links{width:100%;justify-content:center;gap:12px;}
   .top-nav .nav-link{font-size:.85rem;}
+  .nav-link-how,
+  .nav-link-why{
+    text-align:center;
+  }
+
+  .container{padding:14px 12px 80px;}
+  .card{padding:18px 16px;}
+  input,select{font-size:16px;}
 }
 
 @media (max-width:420px){
-  .top-nav{padding:12px 12px;gap:10px;}
-  .top-links{gap:10px;}
+  .top-nav{padding:12px 12px;gap:8px;}
   .top-nav .nav-link{font-size:.8rem;letter-spacing:.01em;}
 }
 
@@ -121,6 +127,8 @@ input,select{
   outline:none;
   transition:border-color .12s, box-shadow .12s;
   width:100%;
+  font-size:16px;
+  line-height:1.4;
 }
 input::placeholder{color:#6b7280}
 input:focus,select:focus{
@@ -214,7 +222,13 @@ input:focus,select:focus{
 }
 
 /* Tooltip pattern */
-.with-tip { position: relative; display: inline-flex; align-items: center; gap: 6px; }
+.with-tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 12px;
+}
 .tip-icon {
   display: inline-grid; place-items: center;
   width: 1.15em; height: 1.15em; line-height: 1;
@@ -226,7 +240,10 @@ input:focus,select:focus{
   color:#e5e7eb;
 }
 .tip-content {
-  position: absolute; left: 0; top: 100%; transform: translateY(8px);
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  transform: translateY(-12px);
   background: #111; color: #fff; padding: 10px 12px; border-radius: 8px;
   max-width: 28rem; width: max-content; min-width: 16rem;
   font-size: 0.9rem; line-height: 1.35;

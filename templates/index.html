@@ -8,11 +8,9 @@
 </head>
 <body>
   <header class="top-nav">
-    <a class="brand" href="{{ url_for('index') }}">CFB Attendance Predictor</a>
-    <nav class="top-links" aria-label="Primary">
-      <a class="nav-link" href="{{ url_for('how_page') }}">How?</a>
-      <a class="nav-link" href="{{ url_for('why_page') }}">Why?</a>
-    </nav>
+    <a class="nav-link nav-link-how" href="{{ url_for('how_page') }}">How?</a>
+    <a class="brand" href="{{ url_for('index') }}">Home</a>
+    <a class="nav-link nav-link-why" href="{{ url_for('why_page') }}">Why?</a>
   </header>
 
   <header class="site-header">
@@ -271,6 +269,21 @@
     // Attach a single input handler to clear placeholders on first user action
     document.addEventListener('input', clearAllPlaceholders, { once: true });
 
+    const bindMobileFocusScroll = () => {
+      const controls = document.querySelectorAll('input, select');
+      controls.forEach(control => {
+        control.addEventListener('focus', () => {
+          if (window.matchMedia('(max-width: 640px)').matches) {
+            window.requestAnimationFrame(() => {
+              control.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+            });
+          }
+        });
+      });
+    };
+
+    bindMobileFocusScroll();
+
     // -------------------------- Load teams for datalist --------------------------
     const homeTeamInput = $('#homeTeam');
     const homeTeamSuggestions = $('#homeTeamSuggestions');
@@ -307,6 +320,7 @@
 
     const applySuggestion = (value) => {
       homeTeamInput.value = value;
+      clearAllPlaceholders();
       hideSuggestions();
       doLookup(value);
       homeTeamInput.focus();
@@ -404,6 +418,7 @@
 
     homeTeamInput.addEventListener('input', (e) => {
       const value = e.target.value;
+      clearAllPlaceholders();
       doLookup(value);
       if (teamOptions.length) {
         renderSuggestions(filterTeams(value));
