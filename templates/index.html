@@ -192,6 +192,155 @@
         <div id="predictionValue" class="result-value">—</div>
       </div>
     </section>
+
+    <!-- Model Accuracy Examples (with dates) -->
+    <section class="accuracy">
+      <h2>Model Accuracy Examples</h2>
+      <p class="subtitle">Hand-entered recent games with verified dates. Differences shown as Predicted − Actual.</p>
+
+      <div class="table-wrap">
+        <table id="accuracy-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Game</th>
+              <th>Location</th>
+              <th>Capacity</th>
+              <th>Fill Rate</th>
+              <th>Wins–Losses</th>
+              <th>Precip</th>
+              <th>Actual</th>
+              <th>Predicted</th>
+              <th>Diff</th>
+              <th>Diff %</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="12" class="footnote">
+                Dates/attendance verified from team/league/ESPN pages (see sources below).
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <details class="sources">
+        <summary>Sources used for dates & attendance</summary>
+        <ul>
+          <li>Indiana vs Old Dominion — Aug 30, 2025 (ESPN).  [oai_citation:0‡ESPN.com](https://www.espn.com/college-football/game/_/gameId/401752806/old-dominion-indiana?utm_source=chatgpt.com)</li>
+          <li>Notre Dame vs Purdue — Sep 20, 2025; attendance 77,622 (B1G gamebook & ND postgame notes).  [oai_citation:1‡Big Ten Conference](https://bigten.org/api/media/file/PUR%20vs.%20ND%209_20_25.pdf?utm_source=chatgpt.com)</li>
+          <li>Illinois at Duke — Sep 6, 2025 (ESPN/Illinois official).  [oai_citation:2‡ESPN.com](https://www.espn.com/college-football/game/_/gameId/401752825/illinois-duke?utm_source=chatgpt.com)</li>
+          <li>USC at Illinois — Sep 27, 2025 (USC official).  [oai_citation:3‡USC Athletics](https://usctrojans.com/sports/football/schedule?utm_source=chatgpt.com)</li>
+          <li>BYU at Colorado — Sep 27, 2025; attendance 52,265 (Big 12 box/Colorado & BYU pages).  [oai_citation:4‡Big 12 Sports](https://big12sports.com/boxscore.aspx?id=7ltyipP022aUJKmSgYVs3wXi7up73ghniwD5ElWyd07J7BNseBaMQePf0fY%2F3yUP%2FPwVHtaMIr8LMSi5wcXpi24tvAKtIJRe4TFRieI9aQ45XdUrhQ%2FXxOv4uG608G3ST00J3g%2BgULFROe6JDunjEO%2BnFeh6nyAMNJd9KUdG7%2F4%3D&path=football&utm_source=chatgpt.com)</li>
+        </ul>
+      </details>
+    </section>
+
+    <script>
+      // ======= Seed data (with dates & locations) =======
+      const games = [
+        {
+          date: "2025-08-30",
+          game: "Indiana vs Old Dominion",
+          location: "Bloomington, IN",
+          capacity: 52929,
+          fill: 0.91,
+          wins: null, losses: null,
+          precip: 0.00,
+          actual: 47109,
+          predicted: 48080
+        },
+        {
+          date: "2025-09-20",
+          game: "Notre Dame vs Purdue",
+          location: "Notre Dame Stadium (South Bend, IN)",
+          capacity: 80795,
+          fill: 1.00,
+          wins: 0, losses: 2,
+          precip: 0.50,
+          actual: 77622,
+          predicted: 71353
+        },
+        {
+          date: "2025-09-06",
+          game: "Duke vs Illinois (at Duke)",
+          location: "Durham, NC",
+          capacity: 35018,
+          fill: 0.75,
+          wins: 1, losses: 0,
+          precip: 0.00,
+          actual: 23893,
+          predicted: 27348
+        },
+        {
+          date: "2025-09-27",
+          game: "USC vs Illinois (at Illinois)",
+          location: "Champaign, IL",
+          capacity: 60670,
+          fill: 0.92,
+          wins: 3, losses: 1,
+          precip: 0.00,
+          actual: 60670,
+          predicted: 58457
+        },
+        {
+          date: "2025-09-27",
+          game: "Colorado vs BYU (at Colorado)",
+          location: "Boulder, CO (Folsom Field)",
+          capacity: 53750,
+          fill: 1.00,
+          wins: 2, losses: 2,
+          precip: 0.00,
+          actual: 52265,
+          predicted: 53750
+        }
+      ];
+
+      const fmtInt = (n) => n == null ? "" : n.toLocaleString();
+      const fmtPct = (x, digits = 0) => (x * 100).toFixed(digits) + "%";
+      const fmtPrecip = (x) => x == null ? "" : Number(x).toFixed(2);
+      const fmtDate = (iso) => {
+        if (!iso) return "";
+        const date = new Date(`${iso}T00:00:00`);
+        if (Number.isNaN(date.getTime())) return iso;
+        return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+      };
+
+      function renderTable(rows) {
+        const tbody = document.querySelector("#accuracy-table tbody");
+        tbody.innerHTML = "";
+        rows
+          .sort((a, b) => (a.date || "").localeCompare(b.date || ""))
+          .forEach((r, idx) => {
+            const diff = (r.predicted ?? 0) - (r.actual ?? 0);
+            const diffPct = (r.actual ? (diff / r.actual) : 0);
+            const wl = (r.wins == null || r.losses == null) ? "" : `${r.wins}–${r.losses}`;
+            const badgeClass = diff >= 0 ? "badge-up" : "badge-down";
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td data-label="#"><span>${idx + 1}</span></td>
+              <td data-label="Date"><span>${fmtDate(r.date)}</span></td>
+              <td data-label="Game"><span>${r.game || ""}</span></td>
+              <td data-label="Location"><span>${r.location || ""}</span></td>
+              <td data-label="Capacity"><span>${fmtInt(r.capacity)}</span></td>
+              <td data-label="Fill Rate"><span>${r.fill != null ? fmtPct(r.fill, 0) : ""}</span></td>
+              <td data-label="Wins–Losses"><span>${wl}</span></td>
+              <td data-label="Precip"><span>${fmtPrecip(r.precip)}</span></td>
+              <td data-label="Actual"><span>${fmtInt(r.actual)}</span></td>
+              <td data-label="Predicted"><span>${fmtInt(r.predicted)}</span></td>
+              <td data-label="Diff" class="${badgeClass}"><span>${diff >= 0 ? "+" : ""}${fmtInt(diff)}</span></td>
+              <td data-label="Diff %" class="${badgeClass}"><span>${(diffPct >= 0 ? "+" : "") + (diffPct * 100).toFixed(1)}%</span></td>
+            `;
+            tbody.appendChild(tr);
+          });
+      }
+
+      renderTable(games);
+    </script>
   </main>
 
   <footer class="site-footer">
@@ -228,7 +377,7 @@
           wrapper.classList.remove('tip-open');
         }
 
-        trigger.addEventListener('click', (e) => {
+        const toggle = (e) => {
           e.preventDefault();
           e.stopPropagation();
           const wasOpen = trigger.getAttribute('aria-expanded') === 'true';
@@ -240,13 +389,26 @@
               wrapper.classList.add('tip-open');
             }
           }
+        };
+
+        trigger.addEventListener('click', (e) => {
+          if (trigger.dataset.touchSkip === 'true') {
+            trigger.dataset.touchSkip = 'false';
+            return;
+          }
+          toggle(e);
         });
+
+        trigger.addEventListener('touchend', (e) => {
+          trigger.dataset.touchSkip = 'true';
+          toggle(e);
+        }, { passive: false });
 
         if (trigger.tagName !== 'BUTTON') {
           trigger.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              trigger.click();
+              toggle(e);
             }
           });
           trigger.addEventListener('mousedown', (e) => {

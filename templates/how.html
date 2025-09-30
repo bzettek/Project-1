@@ -17,10 +17,72 @@
     </div>
   </header>
 
-  <main class="container" style="min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;">
-    <section>
-      <h1 style="margin-bottom:0.5rem;">How?</h1>
-      <p style="color:var(--muted);">Details coming soon.</p>
+  <main class="container why-container">
+    <section class="why-copy">
+      <h1>How I Built This</h1>
+
+      <div class="story-block">
+        <h2>What impacts the amount of people in the stadium?</h2>
+        <p>
+          My model looks at five measurable variables from games taking place between 2000 and 2024.
+          <ul>
+            <li>Stadium Capacity</li> 
+            <li>Fill Rate (% of the stadium filled)</li>       
+            <li>Team Record (wins & losses)</li>       
+            <li>Precipitation Amount (Rain/Snow values between 0–1, like 0.10 for light rain)</li>       
+
+                 
+          </ul>
+
+        </p>
+        <figure>
+          <img class="story-image-small" src="/static/rfgExampImg.png" alt="Replace with an image that represents the project's early concept." />
+        </figure> 
+        <br/>         
+        <figcaption>Note: Tickets sales are another massive indicator of attendance.
+                    I am working on finding an API to work them into the equation and improve the model.
+        </figcaption>
+
+      </div>
+
+      <p></p>
+
+
+
+      <div class="story-block">
+        <h2>Why Random Forest Regression?</h2>
+        <p>
+          Random Forest regression is a machine learning method that combines many individual decision trees. 
+          Each tree makes its own prediction, and the forest averages them together. 
+          This approach reduces bias and avoids overfitting, meaning the model can better handle complex patterns in college football attendance. 
+          I used it because attendance depends on many interacting factors, and Random Forests can capture these relationships while staying accurate and reliable.
+        </p>
+        <figure>
+          <img src="/static/feautImport2.png" alt="Replace with an image or diagram of your data pipeline or model training." />
+          <figcaption>Above you can see that my model predicts capactity to be most important in predicting attendance.</figcaption>
+        </figure>
+      </div>
+              <p></p>
+
+      <div class="story-block">
+        <h2>Limitations</h2>
+        <p>
+         This model is not updated instantly throughout the season, so it cannot always capture sudden shifts in fan behavior. 
+         Every year brings anomalies, programs rise and fall in popularity, creating attendance swings that historical data alone won’t predict.
+          <p></p>
+            For example, Indiana’s average fill rate was around 0.76, but recent seasons have pushed it closer to 0.90, reflecting a surge in demand. 
+            Models trained on older data may underestimate this type of change.
+          <p></p>
+          Because of this, predictions should be seen as guidance, not guarantees. 
+          To improve my model, I plan to add ticket sales and live price tracking as inputs in the future, creating gametime estimates that adapt to real-world demand.
+        </p>
+
+      </div>
+
+
+      <p></p>
+
+
     </section>
   </main>
 
