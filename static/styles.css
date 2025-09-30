@@ -453,7 +453,7 @@ details.sources li{list-style:disc;color:var(--text);line-height:1.5;overflow-wr
 
 @media (max-width:640px){
   .accuracy{padding:18px 16px;margin-top:28px;}
-  .accuracy .table-wrap{overflow:visible;}
+  .accuracy .table-wrap{overflow:visible;width:100%;box-sizing:border-box;}
   #accuracy-table,
   #accuracy-table tbody,
   #accuracy-table tr,
@@ -466,15 +466,17 @@ details.sources li{list-style:disc;color:var(--text);line-height:1.5;overflow-wr
     overflow:hidden;
     background:rgba(10,16,28,.85);
     box-shadow:0 12px 28px rgba(0,0,0,.35);
+    box-sizing:border-box;
   }
   #accuracy-table td{
     border-bottom:1px solid rgba(37,56,84,.45);
     padding:12px 14px;
     text-align:left;
     display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:18px;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+    box-sizing:border-box;
   }
   #accuracy-table td:last-child{border-bottom:none;}
   #accuracy-table td::before{
@@ -484,13 +486,13 @@ details.sources li{list-style:disc;color:var(--text);line-height:1.5;overflow-wr
     text-transform:uppercase;
     font-size:.72rem;
     letter-spacing:.1em;
-    flex:0 0 48%;
+    width:100%;
   }
   #accuracy-table td.badge-up,
-  #accuracy-table td.badge-down{justify-content:flex-start;gap:12px;}
+  #accuracy-table td.badge-down{justify-content:flex-start;gap:6px;}
   #accuracy-table td.badge-up span,
   #accuracy-table td.badge-down span{font-weight:600;}
-  #accuracy-table td span{display:inline-block;}
+  #accuracy-table td span{display:block;width:100%;overflow-wrap:anywhere;}
   #accuracy-table tbody tr:hover{background:rgba(10,16,28,.85);}
   #accuracy-table tfoot tr{margin-bottom:0;border:none;box-shadow:none;background:transparent;}
   #accuracy-table tfoot td{
