@@ -13,6 +13,7 @@
 html{-webkit-text-size-adjust:100%;}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Helvetica,Arial}
 body{overscroll-behavior-y:contain;}
+@media (max-width:640px){body{overflow-x:hidden;}}
 a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 
@@ -78,6 +79,7 @@ a:hover{text-decoration:underline}
 
   .container{padding:14px 12px 80px;}
   .card{padding:18px 16px;}
+  .card,.accuracy{width:100%;box-sizing:border-box;margin:0 auto;}
   input,select{font-size:16px;}
 }
 
@@ -93,7 +95,7 @@ a:hover{text-decoration:underline}
 .logo-wrap{display:flex;justify-content:center;margin:12px 0 4px}
 .logo{max-width:245px;width:48%;height:auto;opacity:.95}
 
-.container{max-width:980px;margin:0 auto;padding:16px}
+.container{max-width:980px;margin:0 auto;padding:16px;width:100%;box-sizing:border-box}
 .card{
   background:var(--card);
   border:1px solid var(--border);
