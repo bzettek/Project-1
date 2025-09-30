@@ -585,17 +585,20 @@ input[type=number]{
   .suggestion-item{padding:9px 10px;font-size:.95em;}
   .with-tip{align-items:flex-start;}
   .with-tip .tip-content{
-    left:50%;
+    left:0;
     right:auto;
-    transform:translate(-50%, -12px);
+    transform:translateY(-12px);
     max-width:calc(100vw - 32px);
     min-width:min(18rem, calc(100vw - 32px));
     width:auto;
     padding:12px 14px;
     text-align:left;
   }
+  .with-tip .tip-content::after{display:none;}
   .help-tip .tip-content,
   .tip-link .tip-content{
+    left:50%;
+    transform:translate(-50%, -12px);
     max-width:calc(100vw - 48px);
   }
 }
