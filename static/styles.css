@@ -583,6 +583,21 @@ input[type=number]{
   .btn-primary{width:100%;}
   .suggestions{max-height:220px;}
   .suggestion-item{padding:9px 10px;font-size:.95em;}
+  .with-tip{align-items:flex-start;}
+  .with-tip .tip-content{
+    left:50%;
+    right:auto;
+    transform:translate(-50%, -12px);
+    max-width:calc(100vw - 32px);
+    min-width:min(18rem, calc(100vw - 32px));
+    width:auto;
+    padding:12px 14px;
+    text-align:left;
+  }
+  .help-tip .tip-content,
+  .tip-link .tip-content{
+    max-width:calc(100vw - 48px);
+  }
 }
 
 .made-by .pill{
