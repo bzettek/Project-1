@@ -2,7 +2,7 @@
 
 A full-stack project that forecasts college football game attendance from historical data, exposes the model through a Flask API, and presents a responsive single-page interface for interactive predictions. This repository also includes training utilities and a Jupyter walkthrough so you can understand, retrain, and validate the model end-to-end.
 
----
+----
 
 ## Table of Contents
 1. [System Overview](#system-overview)
