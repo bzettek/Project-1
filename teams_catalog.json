@@ -1,975 +1,936 @@
 {
   "teams": {
-    "air force": {
-      "display": "Air Force",
-      "capacity": null,
-      "fill": 0.6649,
-      "aliases": []
-    },
-    "akron": {
-      "display": "Akron",
-      "capacity": null,
-      "fill": 0.2125,
-      "aliases": []
-    },
-    "alabama": {
-      "display": "Alabama",
-      "capacity": 101821,
-      "fill": 1.0,
-      "aliases": [
-        "Bowling Green",
-        "Bowling Green State",
-        "Pitt",
-        "Pittsburgh",
-        "Texas San Antonio",
-        "Texas at San Antonio",
-        "UTSA",
-        "University of Pittsburgh"
-      ]
-    },
-    "appalachian state": {
-      "display": "Appalachian State",
-      "capacity": null,
-      "fill": 1.0,
-      "aliases": [
-        "Appalachian"
-      ]
-    },
-    "arizona": {
-      "display": "Arizona",
-      "capacity": 57400,
-      "fill": 0.8343,
-      "aliases": [
-        "Arizona St.",
-        "Arizona State"
-      ]
-    },
-    "arizona state": {
-      "display": "Arizona State",
-      "capacity": null,
-      "fill": 0.8711,
-      "aliases": [
-        "Arizona"
-      ]
-    },
-    "arkansas": {
-      "display": "Arkansas",
-      "capacity": 76212,
-      "fill": 0.963,
-      "aliases": []
-    },
-    "arkansas state": {
-      "display": "Arkansas State",
-      "capacity": 30964,
-      "fill": 0.5772,
-      "aliases": [
-        "Arkansas",
-        "Colorado St.",
-        "Colorado State",
-        "Fresno St.",
-        "Fresno State",
-        "Ohio St.",
-        "Ohio State",
-        "Ohio State University",
-        "Oklahoma St.",
-        "Oklahoma State",
-        "The Ohio State University",
-        "Utah St.",
-        "Utah State",
-        "Washington St.",
-        "Washington State"
-      ]
-    },
-    "army west point": {
-      "display": "Army West Point",
-      "capacity": null,
-      "fill": 0.8924,
-      "aliases": [
-        "Army"
-      ]
-    },
-    "auburn": {
-      "display": "Auburn",
-      "capacity": null,
-      "fill": 1.0,
-      "aliases": []
-    },
-    "ball state": {
-      "display": "Ball State",
-      "capacity": 30964,
-      "fill": 0.4374,
-      "aliases": [
-        "Ball",
-        "Ball St."
-      ]
-    },
-    "baylor": {
-      "display": "Baylor",
-      "capacity": 50000,
-      "fill": 0.9371,
-      "aliases": []
-    },
-    "boise state": {
-      "display": "Boise State",
-      "capacity": 36387,
-      "fill": 1.0,
-      "aliases": [
-        "Boise",
-        "Boise St."
-      ]
-    },
-    "boston college": {
-      "display": "Boston College",
-      "capacity": 44500,
-      "fill": 0.8953,
-      "aliases": [
-        "Boston"
-      ]
-    },
-    "bowling green": {
-      "display": "Bowling Green",
-      "capacity": null,
-      "fill": 0.5566,
-      "aliases": [
-        "Bowling"
-      ]
-    },
-    "buffalo": {
-      "display": "Buffalo",
-      "capacity": 29013,
-      "fill": 0.5911,
-      "aliases": []
-    },
-    "byu": {
-      "display": "BYU",
-      "capacity": 65000,
-      "fill": 0.9902,
-      "aliases": [
-        "Brigham Young",
-        "Brigham Young University"
-      ]
-    },
-    "california": {
-      "display": "California",
-      "capacity": 75028,
-      "fill": 0.6246,
-      "aliases": []
-    },
-    "central michigan": {
-      "display": "Central Michigan",
-      "capacity": null,
-      "fill": 0.5867,
-      "aliases": [
-        "Central"
-      ]
-    },
-    "charlotte": {
-      "display": "Charlotte",
-      "capacity": null,
-      "fill": 0.9231,
-      "aliases": []
-    },
-    "cincinnati": {
-      "display": "Cincinnati",
-      "capacity": null,
-      "fill": 0.9613,
-      "aliases": []
-    },
-    "clemson": {
-      "display": "Clemson",
+    "clemson tigers": {
+      "display": "Clemson Tigers",
       "capacity": 81500,
-      "fill": 0.9915,
+      "fill": 0.99,
       "aliases": []
     },
-    "coastal carolina": {
-      "display": "Coastal Carolina",
-      "capacity": null,
-      "fill": 0.9311,
-      "aliases": [
-        "Coastal"
-      ]
-    },
-    "colorado": {
-      "display": "Colorado",
-      "capacity": 53750,
-      "fill": 1.0,
+    "florida state seminoles": {
+      "display": "Florida State Seminoles",
+      "capacity": 79560,
+      "fill": 0.97,
       "aliases": []
     },
-    "colorado state": {
-      "display": "Colorado State",
-      "capacity": null,
-      "fill": 0.803,
-      "aliases": [
-        "Colorado"
-      ]
-    },
-    "duke": {
-      "display": "Duke",
-      "capacity": null,
-      "fill": 0.7477,
+    "pitt panthers": {
+      "display": "Pitt Panthers",
+      "capacity": 68400,
+      "fill": 0.78,
       "aliases": []
     },
-    "eastern michigan": {
-      "display": "Eastern Michigan",
-      "capacity": null,
-      "fill": 0.5129,
-      "aliases": [
-        "Eastern"
-      ]
-    },
-    "ecu": {
-      "display": "ECU",
-      "capacity": null,
-      "fill": 0.7334,
+    "virginia tech hokies": {
+      "display": "Virginia Tech Hokies",
+      "capacity": 65632,
+      "fill": 0.99,
       "aliases": []
     },
-    "fiu": {
-      "display": "FIU",
-      "capacity": 20000,
-      "fill": 0.5769,
+    "cal golden bears": {
+      "display": "Cal Golden Bears",
+      "capacity": 63000,
+      "fill": 0.62,
       "aliases": []
     },
-    "florida": {
-      "display": "Florida",
-      "capacity": null,
-      "fill": 1.0,
-      "aliases": []
-    },
-    "florida atlantic": {
-      "display": "Florida Atlantic",
-      "capacity": null,
-      "fill": 0.65,
-      "aliases": [
-        "Florida"
-      ]
-    },
-    "florida state": {
-      "display": "Florida State",
-      "capacity": 82300,
-      "fill": 0.9723,
-      "aliases": [
-        "Florida"
-      ]
-    },
-    "fresno state": {
-      "display": "Fresno State",
-      "capacity": null,
-      "fill": 0.9895,
-      "aliases": [
-        "Fresno"
-      ]
-    },
-    "georgia": {
-      "display": "Georgia",
-      "capacity": null,
-      "fill": 1.0,
-      "aliases": []
-    },
-    "georgia southern": {
-      "display": "Georgia Southern",
-      "capacity": null,
-      "fill": 0.9006,
-      "aliases": [
-        "Georgia"
-      ]
-    },
-    "georgia state": {
-      "display": "Georgia State",
-      "capacity": 71228,
-      "fill": 0.5772,
-      "aliases": [
-        "Georgia"
-      ]
-    },
-    "georgia tech": {
-      "display": "Georgia Tech",
-      "capacity": 55000,
-      "fill": 0.6948,
-      "aliases": [
-        "Georgia",
-        "VT",
-        "Virginia Tech"
-      ]
-    },
-    "hawaii": {
-      "display": "Hawaii",
-      "capacity": 50000,
-      "fill": 0.7666,
-      "aliases": []
-    },
-    "houston": {
-      "display": "Houston",
-      "capacity": null,
-      "fill": 0.6856,
-      "aliases": []
-    },
-    "illinois": {
-      "display": "Illinois",
-      "capacity": 70904,
-      "fill": 0.9024,
-      "aliases": []
-    },
-    "indiana": {
-      "display": "Indiana",
-      "capacity": 52929,
-      "fill": 0.9134,
-      "aliases": []
-    },
-    "iowa": {
-      "display": "Iowa",
-      "capacity": null,
-      "fill": 1.0,
-      "aliases": []
-    },
-    "iowa state": {
-      "display": "Iowa State",
+    "virginia cavaliers": {
+      "display": "Virginia Cavaliers",
       "capacity": 61500,
-      "fill": 0.9412,
-      "aliases": [
-        "Iowa"
-      ]
+      "fill": 0.63,
+      "aliases": []
     },
-    "jacksonville state": {
-      "display": "Jacksonville State",
-      "capacity": null,
-      "fill": 0.7591,
-      "aliases": [
-        "Jacksonville"
-      ]
+    "louisville cardinals": {
+      "display": "Louisville Cardinals",
+      "capacity": 60800,
+      "fill": 0.83,
+      "aliases": []
     },
-    "james madison": {
-      "display": "James Madison",
-      "capacity": null,
+    "nc state wolfpack": {
+      "display": "NC State Wolfpack",
+      "capacity": 56919,
+      "fill": 0.99,
+      "aliases": []
+    },
+    "georgia tech yellow jackets": {
+      "display": "Georgia Tech Yellow Jackets",
+      "capacity": 55000,
+      "fill": 0.69,
+      "aliases": []
+    },
+    "north carolina tar heels": {
+      "display": "North Carolina Tar Heels",
+      "capacity": 50500,
+      "fill": 0.94,
+      "aliases": []
+    },
+    "stanford cardinal": {
+      "display": "Stanford Cardinal",
+      "capacity": 50424,
+      "fill": 0.52,
+      "aliases": []
+    },
+    "syracuse orange": {
+      "display": "Syracuse Orange",
+      "capacity": 49057,
+      "fill": 0.79,
+      "aliases": []
+    },
+    "duke blue devils": {
+      "display": "Duke Blue Devils",
+      "capacity": 40004,
+      "fill": 0.75,
+      "aliases": []
+    },
+    "smu mustangs": {
+      "display": "SMU Mustangs",
+      "capacity": 32000,
       "fill": 1.0,
-      "aliases": [
-        "James"
-      ]
+      "aliases": []
     },
-    "kansas": {
-      "display": "Kansas",
+    "wake forest demon deacons": {
+      "display": "Wake Forest Demon Deacons",
+      "capacity": 31500,
+      "fill": 0.94,
+      "aliases": []
+    },
+    "byu cougars": {
+      "display": "BYU Cougars",
+      "capacity": 63470,
+      "fill": 0.99,
+      "aliases": []
+    },
+    "iowa state cyclones": {
+      "display": "Iowa State Cyclones",
+      "capacity": 61500,
+      "fill": 0.94,
+      "aliases": []
+    },
+    "texas tech red raiders": {
+      "display": "Texas Tech Red Raiders",
+      "capacity": 60454,
+      "fill": 0.97,
+      "aliases": []
+    },
+    "west virginia mountaineers": {
+      "display": "West Virginia Mountaineers",
+      "capacity": 60000,
+      "fill": 0.87,
+      "aliases": []
+    },
+    "oklahoma state cowboys": {
+      "display": "Oklahoma State Cowboys",
+      "capacity": 53855,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "arizona state sun devils": {
+      "display": "Arizona State Sun Devils",
+      "capacity": 53599,
+      "fill": 0.87,
+      "aliases": []
+    },
+    "kansas jayhawks": {
+      "display": "Kansas Jayhawks",
+      "capacity": 51500,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "utah utes": {
+      "display": "Utah Utes",
+      "capacity": 51444,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "arizona wildcats": {
+      "display": "Arizona Wildcats",
+      "capacity": 50782,
+      "fill": 0.83,
+      "aliases": []
+    },
+    "colorado buffaloes": {
+      "display": "Colorado Buffaloes",
+      "capacity": 50183,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "kansas state wildcats": {
+      "display": "Kansas State Wildcats",
       "capacity": 50000,
       "fill": 1.0,
       "aliases": []
     },
-    "kansas state": {
-      "display": "Kansas State",
-      "capacity": 50300,
-      "fill": 1.0,
-      "aliases": [
-        "Kansas",
-        "Kansas St."
-      ]
-    },
-    "kennesaw state": {
-      "display": "Kennesaw State",
-      "capacity": null,
-      "fill": 0.8835,
-      "aliases": [
-        "Kennesaw"
-      ]
-    },
-    "kent state": {
-      "display": "Kent State",
-      "capacity": 30520,
-      "fill": 0.3379,
-      "aliases": [
-        "Kent"
-      ]
-    },
-    "kentucky": {
-      "display": "Kentucky",
-      "capacity": null,
-      "fill": 0.9757,
+    "tcu horned frogs": {
+      "display": "TCU Horned Frogs",
+      "capacity": 46000,
+      "fill": 0.99,
       "aliases": []
     },
-    "liberty": {
-      "display": "Liberty",
-      "capacity": null,
-      "fill": 0.8138,
+    "baylor bears": {
+      "display": "Baylor Bears",
+      "capacity": 45140,
+      "fill": 0.94,
       "aliases": []
     },
-    "louisiana": {
-      "display": "Louisiana",
-      "capacity": 41426,
-      "fill": 0.4334,
+    "houston cougars": {
+      "display": "Houston Cougars",
+      "capacity": 40000,
+      "fill": 0.69,
       "aliases": []
     },
-    "louisiana monroe": {
-      "display": "Louisiana\u2013Monroe",
-      "capacity": null,
-      "fill": 0.5194,
+    "cincinnati bearcats": {
+      "display": "Cincinnati Bearcats",
+      "capacity": 38088,
+      "fill": 0.96,
       "aliases": []
     },
-    "louisiana tech": {
-      "display": "Louisiana Tech",
-      "capacity": 30600,
-      "fill": 0.5692,
-      "aliases": [
-        "Louisiana"
-      ]
-    },
-    "louisville": {
-      "display": "Louisville",
-      "capacity": null,
-      "fill": 0.8338,
-      "aliases": []
-    },
-    "lsu": {
-      "display": "LSU",
-      "capacity": null,
-      "fill": 0.9726,
-      "aliases": []
-    },
-    "marshall": {
-      "display": "Marshall",
-      "capacity": 38227,
-      "fill": 0.6055,
-      "aliases": []
-    },
-    "maryland": {
-      "display": "Maryland",
-      "capacity": null,
-      "fill": 0.6957,
-      "aliases": []
-    },
-    "massachusetts": {
-      "display": "Massachusetts",
-      "capacity": null,
-      "fill": 0.7217,
-      "aliases": []
-    },
-    "memphis": {
-      "display": "Memphis",
-      "capacity": 62921,
-      "fill": 0.3936,
-      "aliases": []
-    },
-    "miami fl": {
-      "display": "Miami (FL)",
-      "capacity": null,
-      "fill": 0.9174,
-      "aliases": [
-        "Miami"
-      ]
-    },
-    "miami oh": {
-      "display": "Miami (OH)",
-      "capacity": 30012,
-      "fill": 0.5021,
-      "aliases": [
-        "Miami"
-      ]
-    },
-    "michigan": {
-      "display": "Michigan",
-      "capacity": null,
+    "michigan wolverines": {
+      "display": "Michigan Wolverines",
+      "capacity": 107601,
       "fill": 1.0,
       "aliases": []
     },
-    "michigan state": {
-      "display": "Michigan State",
+    "penn state nittany lions": {
+      "display": "Penn State Nittany Lions",
+      "capacity": 106572,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "ohio state buckeyes": {
+      "display": "Ohio State Buckeyes",
+      "capacity": 102780,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "ucla bruins": {
+      "display": "UCLA Bruins",
+      "capacity": 89702,
+      "fill": 0.52,
+      "aliases": []
+    },
+    "nebraska cornhuskers": {
+      "display": "Nebraska Cornhuskers",
+      "capacity": 85458,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "usc trojans": {
+      "display": "USC Trojans",
+      "capacity": 77500,
+      "fill": 0.92,
+      "aliases": []
+    },
+    "wisconsin badgers": {
+      "display": "Wisconsin Badgers",
+      "capacity": 75822,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "michigan state spartans": {
+      "display": "Michigan State Spartans",
       "capacity": 75005,
-      "fill": 0.8707,
-      "aliases": [
-        "Michigan",
-        "Michigan Wolverines",
-        "University of Michigan"
-      ]
-    },
-    "middle tennessee": {
-      "display": "Middle Tennessee",
-      "capacity": 30788,
-      "fill": 0.4154,
-      "aliases": [
-        "Middle"
-      ]
-    },
-    "minnesota": {
-      "display": "Minnesota",
-      "capacity": null,
-      "fill": 0.9343,
+      "fill": 0.87,
       "aliases": []
     },
-    "mississippi state": {
-      "display": "Mississippi State",
-      "capacity": null,
-      "fill": 0.7957,
-      "aliases": [
-        "Mississippi"
-      ]
+    "washington huskies": {
+      "display": "Washington Huskies",
+      "capacity": 70138,
+      "fill": 0.98,
+      "aliases": []
     },
-    "missouri": {
-      "display": "Missouri",
-      "capacity": 71168,
+    "iowa hawkeyes": {
+      "display": "Iowa Hawkeyes",
+      "capacity": 69250,
       "fill": 1.0,
       "aliases": []
     },
-    "navy": {
-      "display": "Navy",
-      "capacity": null,
+    "purdue boilermakers": {
+      "display": "Purdue Boilermakers",
+      "capacity": 61441,
+      "fill": 0.97,
+      "aliases": []
+    },
+    "illinois fighting illini": {
+      "display": "Illinois Fighting Illini",
+      "capacity": 60670,
+      "fill": 0.9,
+      "aliases": []
+    },
+    "oregon ducks": {
+      "display": "Oregon Ducks",
+      "capacity": 54000,
       "fill": 1.0,
       "aliases": []
     },
-    "nc state": {
-      "display": "NC State",
-      "capacity": 57583,
-      "fill": 0.9885,
-      "aliases": [
-        "Nc",
-        "North Carolina State"
-      ]
-    },
-    "nebraska": {
-      "display": "Nebraska",
-      "capacity": 87147,
-      "fill": 1.0,
+    "indiana hoosiers": {
+      "display": "Indiana Hoosiers",
+      "capacity": 52626,
+      "fill": 0.91,
       "aliases": []
     },
-    "nevada": {
-      "display": "Nevada",
-      "capacity": 31545,
-      "fill": 0.6452,
+    "rutgers scarlet knights": {
+      "display": "Rutgers Scarlet Knights",
+      "capacity": 52454,
+      "fill": 0.92,
       "aliases": []
     },
-    "new mexico": {
-      "display": "New Mexico",
-      "capacity": 40094,
-      "fill": 0.4079,
+    "maryland terrapins": {
+      "display": "Maryland Terrapins",
+      "capacity": 51802,
+      "fill": 0.7,
       "aliases": []
     },
-    "new mexico state": {
-      "display": "New Mexico State",
-      "capacity": null,
-      "fill": 0.4729,
+    "minnesota golden gophers": {
+      "display": "Minnesota Golden Gophers",
+      "capacity": 50805,
+      "fill": 0.93,
       "aliases": []
     },
-    "north carolina": {
-      "display": "North Carolina",
-      "capacity": null,
-      "fill": 0.9443,
-      "aliases": [
-        "North"
-      ]
-    },
-    "north texas": {
-      "display": "North Texas",
-      "capacity": null,
-      "fill": 0.7463,
-      "aliases": [
-        "North"
-      ]
-    },
-    "northern illinois": {
-      "display": "Northern Illinois",
-      "capacity": 31000,
-      "fill": 0.5154,
-      "aliases": [
-        "Northern"
-      ]
-    },
-    "northwestern": {
-      "display": "Northwestern",
+    "northwestern wildcats": {
+      "display": "Northwestern Wildcats",
       "capacity": 47130,
       "fill": 1.0,
       "aliases": []
     },
-    "notre dame": {
-      "display": "Notre Dame",
-      "capacity": 80795,
-      "fill": 1.0,
-      "aliases": [
-        "Notre"
-      ]
-    },
-    "ohio": {
-      "display": "Ohio",
-      "capacity": 24000,
-      "fill": 0.735,
-      "aliases": []
-    },
-    "ohio state": {
-      "display": "Ohio State",
-      "capacity": null,
-      "fill": 1.0,
-      "aliases": [
-        "Ohio"
-      ]
-    },
-    "oklahoma": {
-      "display": "Oklahoma",
-      "capacity": 83469,
+    "oregon state beavers": {
+      "display": "Oregon State Beavers",
+      "capacity": 35548,
       "fill": 1.0,
       "aliases": []
     },
-    "oklahoma state": {
-      "display": "Oklahoma State",
-      "capacity": null,
-      "fill": 1.0,
-      "aliases": [
-        "Oklahoma"
-      ]
-    },
-    "old dominion": {
-      "display": "Old Dominion",
-      "capacity": null,
-      "fill": 0.9238,
+    "washington state cougars": {
+      "display": "Washington State Cougars",
+      "capacity": 32952,
+      "fill": 0.69,
       "aliases": []
     },
-    "ole miss": {
-      "display": "Ole Miss",
+    "texas a&m aggies": {
+      "display": "Texas A&M Aggies",
+      "capacity": 102733,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "lsu tigers": {
+      "display": "LSU Tigers",
+      "capacity": 102321,
+      "fill": 0.97,
+      "aliases": []
+    },
+    "tennessee volunteers": {
+      "display": "Tennessee Volunteers",
+      "capacity": 101915,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "alabama crimson tide": {
+      "display": "Alabama Crimson Tide",
+      "capacity": 101821,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "texas longhorns": {
+      "display": "Texas Longhorns",
+      "capacity": 100119,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "georgia bulldogs": {
+      "display": "Georgia Bulldogs",
+      "capacity": 93033,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "auburn tigers": {
+      "display": "Auburn Tigers",
+      "capacity": 87451,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "oklahoma sooners": {
+      "display": "Oklahoma Sooners",
+      "capacity": 83489,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "south carolina gamecocks": {
+      "display": "South Carolina Gamecocks",
+      "capacity": 77559,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "arkansas razorbacks": {
+      "display": "Arkansas Razorbacks",
+      "capacity": 76000,
+      "fill": 0.96,
+      "aliases": []
+    },
+    "ole miss rebels": {
+      "display": "Ole Miss Rebels",
       "capacity": 64038,
       "fill": 1.0,
-      "aliases": [
-        "Mississippi",
-        "Ole",
-        "University of Mississippi"
-      ]
+      "aliases": []
     },
-    "oregon": {
-      "display": "Oregon",
-      "capacity": null,
+    "kentucky wildcats": {
+      "display": "Kentucky Wildcats",
+      "capacity": 63543,
+      "fill": 0.98,
+      "aliases": []
+    },
+    "missouri tigers": {
+      "display": "Missouri Tigers",
+      "capacity": 61620,
       "fill": 1.0,
       "aliases": []
     },
-    "oregon state": {
-      "display": "Oregon State",
-      "capacity": 45674,
-      "fill": 1.0,
-      "aliases": [
-        "Oregon",
-        "Oregon Ducks",
-        "University of Oregon"
-      ]
-    },
-    "penn state": {
-      "display": "Penn State",
-      "capacity": 107282,
-      "fill": 1.0,
-      "aliases": [
-        "Penn"
-      ]
-    },
-    "pittsburgh": {
-      "display": "Pittsburgh",
-      "capacity": null,
-      "fill": 0.776,
+    "mississippi state bulldogs": {
+      "display": "Mississippi State Bulldogs",
+      "capacity": 61337,
+      "fill": 0.8,
       "aliases": []
     },
-    "purdue": {
-      "display": "Purdue",
-      "capacity": null,
-      "fill": 0.9747,
+    "vanderbilt commodores": {
+      "display": "Vanderbilt Commodores",
+      "capacity": 41000,
+      "fill": 0.99,
       "aliases": []
     },
-    "rice": {
-      "display": "Rice",
-      "capacity": null,
-      "fill": 0.386,
-      "aliases": []
-    },
-    "rutgers": {
-      "display": "Rutgers",
-      "capacity": 52454,
-      "fill": 0.9216,
-      "aliases": []
-    },
-    "sam houston state": {
-      "display": "Sam Houston State",
-      "capacity": null,
-      "fill": 0.7845,
-      "aliases": []
-    },
-    "san diego state": {
-      "display": "San Diego State",
-      "capacity": 54000,
-      "fill": 0.7077,
-      "aliases": []
-    },
-    "san jose state": {
-      "display": "San Jose State",
-      "capacity": null,
-      "fill": 0.8792,
-      "aliases": []
-    },
-    "smu": {
-      "display": "SMU",
-      "capacity": 92100,
-      "fill": 1.0,
-      "aliases": [
-        "Southern Methodist",
-        "Southern Methodist University"
-      ]
-    },
-    "south alabama": {
-      "display": "South Alabama",
-      "capacity": 40646,
-      "fill": 0.7139,
-      "aliases": [
-        "South"
-      ]
-    },
-    "south carolina": {
-      "display": "South Carolina",
-      "capacity": null,
-      "fill": 1.0,
-      "aliases": [
-        "South"
-      ]
-    },
-    "south florida": {
-      "display": "South Florida",
-      "capacity": null,
-      "fill": 0.4772,
-      "aliases": [
-        "South"
-      ]
-    },
-    "southern miss": {
-      "display": "Southern Miss",
-      "capacity": 36000,
-      "fill": 0.6238,
-      "aliases": [
-        "Southern"
-      ]
-    },
-    "stanford": {
-      "display": "Stanford",
-      "capacity": null,
-      "fill": 0.5163,
-      "aliases": []
-    },
-    "syracuse": {
-      "display": "Syracuse",
-      "capacity": 49550,
-      "fill": 0.7945,
-      "aliases": []
-    },
-    "tcu": {
-      "display": "TCU",
-      "capacity": null,
-      "fill": 0.9912,
-      "aliases": []
-    },
-    "temple": {
-      "display": "Temple",
-      "capacity": null,
-      "fill": 0.2031,
-      "aliases": []
-    },
-    "tennessee": {
-      "display": "Tennessee",
-      "capacity": null,
+    "notre dame fighting irish": {
+      "display": "Notre Dame Fighting Irish",
+      "capacity": 77622,
       "fill": 1.0,
       "aliases": []
     },
-    "texas": {
-      "display": "Texas",
-      "capacity": null,
+    "south florida bulls": {
+      "display": "South Florida Bulls",
+      "capacity": 69218,
+      "fill": 0.48,
+      "aliases": []
+    },
+    "memphis tigers": {
+      "display": "Memphis Tigers",
+      "capacity": 58325,
+      "fill": 0.39,
+      "aliases": []
+    },
+    "east carolina pirates": {
+      "display": "East Carolina Pirates",
+      "capacity": 50000,
+      "fill": 0.73,
+      "aliases": []
+    },
+    "uab blazers": {
+      "display": "UAB Blazers",
+      "capacity": 47100,
+      "fill": 0.41,
+      "aliases": []
+    },
+    "rice owls": {
+      "display": "Rice Owls",
+      "capacity": 47000,
+      "fill": 0.39,
+      "aliases": []
+    },
+    "navy midshipmen": {
+      "display": "Navy Midshipmen",
+      "capacity": 34000,
       "fill": 1.0,
       "aliases": []
     },
-    "texas aandm": {
-      "display": "Texas A&M",
-      "capacity": 106511,
-      "fill": 1.0,
-      "aliases": [
-        "Texas",
-        "Texas A and M",
-        "Texas A&M University",
-        "Texas Aandm"
-      ]
-    },
-    "texas state": {
-      "display": "Texas State",
-      "capacity": null,
-      "fill": 0.7873,
-      "aliases": [
-        "Texas"
-      ]
-    },
-    "texas tech": {
-      "display": "Texas Tech",
-      "capacity": null,
-      "fill": 0.9733,
-      "aliases": [
-        "Texas"
-      ]
-    },
-    "toledo": {
-      "display": "Toledo",
-      "capacity": 26248,
-      "fill": 0.8264,
+    "north texas mean green": {
+      "display": "North Texas Mean Green",
+      "capacity": 30850,
+      "fill": 0.75,
       "aliases": []
     },
-    "troy": {
-      "display": "Troy",
+    "utsa roadrunners": {
+      "display": "UTSA Roadrunners",
+      "capacity": 35000,
+      "fill": 0.32,
+      "aliases": []
+    },
+    "tulane green wave": {
+      "display": "Tulane Green Wave",
       "capacity": 30000,
-      "fill": 0.7773,
+      "fill": 0.8,
       "aliases": []
     },
-    "tulane": {
-      "display": "Tulane",
-      "capacity": null,
-      "fill": 0.7993,
+    "tulsa golden hurricane": {
+      "display": "Tulsa Golden Hurricane",
+      "capacity": 30000,
+      "fill": 0.68,
       "aliases": []
     },
-    "tulsa": {
-      "display": "Tulsa",
-      "capacity": null,
-      "fill": 0.6804,
+    "charlotte 49ers": {
+      "display": "Charlotte 49ers",
+      "capacity": 15314,
+      "fill": 0.92,
       "aliases": []
     },
-    "uab": {
-      "display": "UAB",
-      "capacity": null,
-      "fill": 0.4069,
+    "utep miners": {
+      "display": "UTEP Miners",
+      "capacity": 45971,
+      "fill": 0.42,
       "aliases": []
     },
-    "ucf": {
-      "display": "UCF",
-      "capacity": 65438,
-      "fill": 0.9738,
+    "middle tennessee state blue raiders": {
+      "display": "Middle Tennessee State Blue Raiders",
+      "capacity": 30788,
+      "fill": 0.42,
       "aliases": []
     },
-    "ucla": {
-      "display": "UCLA",
-      "capacity": 92542,
-      "fill": 0.515,
-      "aliases": [
-        "California-Los Angeles",
-        "University of California Los Angeles"
-      ]
-    },
-    "uconn": {
-      "display": "UConn",
-      "capacity": null,
-      "fill": 0.6344,
+    "new mexico state aggies": {
+      "display": "New Mexico State Aggies",
+      "capacity": 28853,
+      "fill": 0.47,
       "aliases": []
     },
-    "umass": {
-      "display": "UMass",
-      "capacity": 17000,
-      "fill": 0.7217,
+    "louisiana tech bulldogs": {
+      "display": "Louisiana Tech Bulldogs",
+      "capacity": 28562,
+      "fill": 0.57,
       "aliases": []
     },
-    "unlv": {
-      "display": "UNLV",
-      "capacity": null,
-      "fill": 0.4954,
+    "liberty flames": {
+      "display": "Liberty Flames",
+      "capacity": 25000,
+      "fill": 0.81,
       "aliases": []
     },
-    "usc": {
-      "display": "USC",
-      "capacity": 93607,
-      "fill": 0.9235,
-      "aliases": [
-        "Southern California",
-        "University of Southern California"
-      ]
-    },
-    "utah": {
-      "display": "Utah",
-      "capacity": null,
-      "fill": 1.0,
-      "aliases": []
-    },
-    "utah state": {
-      "display": "Utah State",
-      "capacity": null,
-      "fill": 0.666,
-      "aliases": [
-        "Utah"
-      ]
-    },
-    "utep": {
-      "display": "UTEP",
-      "capacity": 51500,
-      "fill": 0.4155,
-      "aliases": []
-    },
-    "utsa": {
-      "display": "UTSA",
-      "capacity": null,
-      "fill": 0.324,
-      "aliases": []
-    },
-    "vanderbilt": {
-      "display": "Vanderbilt",
-      "capacity": null,
-      "fill": 0.9856,
-      "aliases": []
-    },
-    "virginia": {
-      "display": "Virginia",
-      "capacity": 61500,
-      "fill": 0.6341,
-      "aliases": []
-    },
-    "virginia tech": {
-      "display": "Virginia Tech",
-      "capacity": null,
-      "fill": 0.9909,
-      "aliases": [
-        "Virginia"
-      ]
-    },
-    "wake forest": {
-      "display": "Wake Forest",
-      "capacity": null,
-      "fill": 0.944,
-      "aliases": [
-        "Wake"
-      ]
-    },
-    "washington": {
-      "display": "Washington",
-      "capacity": 72500,
-      "fill": 0.9826,
-      "aliases": []
-    },
-    "washington state": {
-      "display": "Washington State",
-      "capacity": null,
-      "fill": 0.695,
-      "aliases": [
-        "Washington"
-      ]
-    },
-    "west virginia": {
-      "display": "West Virginia",
-      "capacity": 63500,
-      "fill": 0.8743,
-      "aliases": [
-        "West"
-      ]
-    },
-    "western kentucky": {
-      "display": "Western Kentucky",
+    "western kentucky hilltoppers": {
+      "display": "Western Kentucky Hilltoppers",
       "capacity": 22113,
-      "fill": 0.6253,
-      "aliases": [
-        "Western"
-      ]
+      "fill": 0.63,
+      "aliases": []
     },
-    "western michigan": {
-      "display": "Western Michigan",
-      "capacity": null,
-      "fill": 0.6363,
-      "aliases": [
-        "Western"
-      ]
+    "delaware blue hens": {
+      "display": "Delaware Blue Hens",
+      "capacity": 22000,
+      "fill": null,
+      "aliases": []
     },
-    "wisconsin": {
-      "display": "Wisconsin",
-      "capacity": 82123,
+    "kennesaw state owls": {
+      "display": "Kennesaw State Owls",
+      "capacity": 10200,
+      "fill": 0.88,
+      "aliases": []
+    },
+    "eastern michigan eagles": {
+      "display": "Eastern Michigan Eagles",
+      "capacity": 30200,
+      "fill": 0.51,
+      "aliases": []
+    },
+    "western michigan broncos": {
+      "display": "Western Michigan Broncos",
+      "capacity": 30200,
+      "fill": 0.64,
+      "aliases": []
+    },
+    "buffalo bulls": {
+      "display": "Buffalo Bulls",
+      "capacity": 29013,
+      "fill": 0.59,
+      "aliases": []
+    },
+    "akron zips": {
+      "display": "Akron Zips",
+      "capacity": 27881,
+      "fill": 0.21,
+      "aliases": []
+    },
+    "toledo rockets": {
+      "display": "Toledo Rockets",
+      "capacity": 26038,
+      "fill": 0.83,
+      "aliases": []
+    },
+    "miami (oh) redhawks": {
+      "display": "Miami (OH) Redhawks",
+      "capacity": 24286,
+      "fill": 0.5,
+      "aliases": []
+    },
+    "bowling green state falcons": {
+      "display": "Bowling Green State Falcons",
+      "capacity": 24000,
+      "fill": 0.56,
+      "aliases": []
+    },
+    "northern illinois huskies": {
+      "display": "Northern Illinois Huskies",
+      "capacity": 23595,
+      "fill": 0.52,
+      "aliases": []
+    },
+    "ball state cardinals": {
+      "display": "Ball State Cardinals",
+      "capacity": 22500,
+      "fill": 0.44,
+      "aliases": []
+    },
+    "kent state golden flashes": {
+      "display": "Kent State Golden Flashes",
+      "capacity": 22000,
+      "fill": 0.34,
+      "aliases": []
+    },
+    "central michigan chippewas": {
+      "display": "Central Michigan Chippewas",
+      "capacity": 30255,
+      "fill": 0.59,
+      "aliases": []
+    },
+    "ohio bobcats": {
+      "display": "Ohio Bobcats",
+      "capacity": 24000,
+      "fill": 0.73,
+      "aliases": []
+    },
+    "fresno state bulldogs": {
+      "display": "Fresno State Bulldogs",
+      "capacity": 40727,
+      "fill": 0.99,
+      "aliases": []
+    },
+    "new mexico lobos": {
+      "display": "New Mexico Lobos",
+      "capacity": 39224,
+      "fill": 0.41,
+      "aliases": []
+    },
+    "colorado state rams": {
+      "display": "Colorado State Rams",
+      "capacity": 36500,
+      "fill": 0.8,
+      "aliases": []
+    },
+    "boise state broncos": {
+      "display": "Boise State Broncos",
+      "capacity": 36363,
       "fill": 1.0,
       "aliases": []
     },
-    "wyoming": {
-      "display": "Wyoming",
-      "capacity": null,
-      "fill": 0.7518,
+    "san jose state spartans": {
+      "display": "San Jose State Spartans",
+      "capacity": 30456,
+      "fill": 0.88,
+      "aliases": []
+    },
+    "nevada wolfpack": {
+      "display": "Nevada Wolfpack",
+      "capacity": 30000,
+      "fill": 0.65,
+      "aliases": []
+    },
+    "wyoming cowboys": {
+      "display": "Wyoming Cowboys",
+      "capacity": 29181,
+      "fill": 0.75,
+      "aliases": []
+    },
+    "utah state aggies": {
+      "display": "Utah State Aggies",
+      "capacity": 25513,
+      "fill": 0.67,
+      "aliases": []
+    },
+    "marshall thundering herd": {
+      "display": "Marshall Thundering Herd",
+      "capacity": 38016,
+      "fill": 0.61,
+      "aliases": []
+    },
+    "southern miss golden eagles": {
+      "display": "Southern Miss Golden Eagles",
+      "capacity": 37000,
+      "fill": 0.62,
+      "aliases": []
+    },
+    "troy trojans": {
+      "display": "Troy Trojans",
+      "capacity": 30470,
+      "fill": 0.78,
+      "aliases": []
+    },
+    "arkansas state red wolves": {
+      "display": "Arkansas State Red Wolves",
+      "capacity": 30382,
+      "fill": 0.58,
+      "aliases": []
+    },
+    "appalachian state mountaineers": {
+      "display": "Appalachian State Mountaineers",
+      "capacity": 30000,
+      "fill": 1.0,
+      "aliases": []
+    },
+    "texas state bobcats": {
+      "display": "Texas State Bobcats",
+      "capacity": 30000,
+      "fill": 0.79,
+      "aliases": []
+    },
+    "ulm warhawks": {
+      "display": "ULM Warhawks",
+      "capacity": 27617,
+      "fill": 0.52,
+      "aliases": []
+    },
+    "georgia state panthers": {
+      "display": "Georgia State Panthers",
+      "capacity": 24333,
+      "fill": 0.58,
+      "aliases": []
+    },
+    "old dominion monarchs": {
+      "display": "Old Dominion Monarchs",
+      "capacity": 21944,
+      "fill": 0.92,
+      "aliases": []
+    },
+    "coastal carolina chanticleers": {
+      "display": "Coastal Carolina Chanticleers",
+      "capacity": 20000,
+      "fill": 0.93,
+      "aliases": []
+    },
+    "james madison dukes": {
+      "display": "James Madison Dukes",
+      "capacity": 24877,
+      "fill": 1.0,
       "aliases": []
     }
-  }
+  },
+  "alias_to_key": {
+    "Clemson Tigers": "clemson tigers",
+    "Florida State Seminoles": "florida state seminoles",
+    "Pitt Panthers": "pitt panthers",
+    "Virginia Tech Hokies": "virginia tech hokies",
+    "Cal Golden Bears": "cal golden bears",
+    "Virginia Cavaliers": "virginia cavaliers",
+    "Louisville Cardinals": "louisville cardinals",
+    "NC State Wolfpack": "nc state wolfpack",
+    "Georgia Tech Yellow Jackets": "georgia tech yellow jackets",
+    "North Carolina Tar Heels": "north carolina tar heels",
+    "Stanford Cardinal": "stanford cardinal",
+    "Syracuse Orange": "syracuse orange",
+    "Duke Blue Devils": "duke blue devils",
+    "SMU Mustangs": "smu mustangs",
+    "Wake Forest Demon Deacons": "wake forest demon deacons",
+    "BYU Cougars": "byu cougars",
+    "Iowa State Cyclones": "iowa state cyclones",
+    "Texas Tech Red Raiders": "texas tech red raiders",
+    "West Virginia Mountaineers": "west virginia mountaineers",
+    "Oklahoma State Cowboys": "oklahoma state cowboys",
+    "Arizona State Sun Devils": "arizona state sun devils",
+    "Kansas Jayhawks": "kansas jayhawks",
+    "Utah Utes": "utah utes",
+    "Arizona Wildcats": "arizona wildcats",
+    "Colorado Buffaloes": "colorado buffaloes",
+    "Kansas State Wildcats": "kansas state wildcats",
+    "TCU Horned Frogs": "tcu horned frogs",
+    "Baylor Bears": "baylor bears",
+    "Houston Cougars": "houston cougars",
+    "Cincinnati Bearcats": "cincinnati bearcats",
+    "Michigan Wolverines": "michigan wolverines",
+    "Penn State Nittany Lions": "penn state nittany lions",
+    "Ohio State Buckeyes": "ohio state buckeyes",
+    "UCLA Bruins": "ucla bruins",
+    "Nebraska Cornhuskers": "nebraska cornhuskers",
+    "USC Trojans": "usc trojans",
+    "Wisconsin Badgers": "wisconsin badgers",
+    "Michigan State Spartans": "michigan state spartans",
+    "Washington Huskies": "washington huskies",
+    "Iowa Hawkeyes": "iowa hawkeyes",
+    "Purdue Boilermakers": "purdue boilermakers",
+    "Illinois Fighting Illini": "illinois fighting illini",
+    "Oregon Ducks": "oregon ducks",
+    "Indiana Hoosiers": "indiana hoosiers",
+    "Rutgers Scarlet Knights": "rutgers scarlet knights",
+    "Maryland Terrapins": "maryland terrapins",
+    "Minnesota Golden Gophers": "minnesota golden gophers",
+    "Northwestern Wildcats": "northwestern wildcats",
+    "Oregon State Beavers": "oregon state beavers",
+    "Washington State Cougars": "washington state cougars",
+    "Texas A&M Aggies": "texas a&m aggies",
+    "LSU Tigers": "lsu tigers",
+    "Tennessee Volunteers": "tennessee volunteers",
+    "Alabama Crimson Tide": "alabama crimson tide",
+    "Texas Longhorns": "texas longhorns",
+    "Georgia Bulldogs": "georgia bulldogs",
+    "Auburn Tigers": "auburn tigers",
+    "Oklahoma Sooners": "oklahoma sooners",
+    "South Carolina Gamecocks": "south carolina gamecocks",
+    "Arkansas Razorbacks": "arkansas razorbacks",
+    "Ole Miss Rebels": "ole miss rebels",
+    "Kentucky Wildcats": "kentucky wildcats",
+    "Missouri Tigers": "missouri tigers",
+    "Mississippi State Bulldogs": "mississippi state bulldogs",
+    "Vanderbilt Commodores": "vanderbilt commodores",
+    "Notre Dame Fighting Irish": "notre dame fighting irish",
+    "South Florida Bulls": "south florida bulls",
+    "Memphis Tigers": "memphis tigers",
+    "East Carolina Pirates": "east carolina pirates",
+    "UAB Blazers": "uab blazers",
+    "Rice Owls": "rice owls",
+    "Navy Midshipmen": "navy midshipmen",
+    "North Texas Mean Green": "north texas mean green",
+    "UTSA Roadrunners": "utsa roadrunners",
+    "Tulane Green Wave": "tulane green wave",
+    "Tulsa Golden Hurricane": "tulsa golden hurricane",
+    "Charlotte 49ers": "charlotte 49ers",
+    "UTEP Miners": "utep miners",
+    "Middle Tennessee State Blue Raiders": "middle tennessee state blue raiders",
+    "New Mexico State Aggies": "new mexico state aggies",
+    "Louisiana Tech Bulldogs": "louisiana tech bulldogs",
+    "Liberty Flames": "liberty flames",
+    "Western Kentucky Hilltoppers": "western kentucky hilltoppers",
+    "Delaware Blue Hens": "delaware blue hens",
+    "Kennesaw State Owls": "kennesaw state owls",
+    "Eastern Michigan Eagles": "eastern michigan eagles",
+    "Western Michigan Broncos": "western michigan broncos",
+    "Buffalo Bulls": "buffalo bulls",
+    "Akron Zips": "akron zips",
+    "Toledo Rockets": "toledo rockets",
+    "Miami (OH) Redhawks": "miami (oh) redhawks",
+    "Bowling Green State Falcons": "bowling green state falcons",
+    "Northern Illinois Huskies": "northern illinois huskies",
+    "Ball State Cardinals": "ball state cardinals",
+    "Kent State Golden Flashes": "kent state golden flashes",
+    "Central Michigan Chippewas": "central michigan chippewas",
+    "Ohio Bobcats": "ohio bobcats",
+    "Fresno State Bulldogs": "fresno state bulldogs",
+    "New Mexico Lobos": "new mexico lobos",
+    "Colorado State Rams": "colorado state rams",
+    "Boise State Broncos": "boise state broncos",
+    "San Jose State Spartans": "san jose state spartans",
+    "Nevada Wolfpack": "nevada wolfpack",
+    "Wyoming Cowboys": "wyoming cowboys",
+    "Utah State Aggies": "utah state aggies",
+    "Marshall Thundering Herd": "marshall thundering herd",
+    "Southern Miss Golden Eagles": "southern miss golden eagles",
+    "Troy Trojans": "troy trojans",
+    "Arkansas State Red Wolves": "arkansas state red wolves",
+    "Appalachian State Mountaineers": "appalachian state mountaineers",
+    "Texas State Bobcats": "texas state bobcats",
+    "ULM Warhawks": "ulm warhawks",
+    "Georgia State Panthers": "georgia state panthers",
+    "Old Dominion Monarchs": "old dominion monarchs",
+    "Coastal Carolina Chanticleers": "coastal carolina chanticleers",
+    "James Madison Dukes": "james madison dukes"
+  },
+  "public_names": [
+    "Akron Zips",
+    "Alabama Crimson Tide",
+    "Appalachian State Mountaineers",
+    "Arizona State Sun Devils",
+    "Arizona Wildcats",
+    "Arkansas Razorbacks",
+    "Arkansas State Red Wolves",
+    "Auburn Tigers",
+    "BYU Cougars",
+    "Ball State Cardinals",
+    "Baylor Bears",
+    "Boise State Broncos",
+    "Bowling Green State Falcons",
+    "Buffalo Bulls",
+    "Cal Golden Bears",
+    "Central Michigan Chippewas",
+    "Charlotte 49ers",
+    "Cincinnati Bearcats",
+    "Clemson Tigers",
+    "Coastal Carolina Chanticleers",
+    "Colorado Buffaloes",
+    "Colorado State Rams",
+    "Delaware Blue Hens",
+    "Duke Blue Devils",
+    "East Carolina Pirates",
+    "Eastern Michigan Eagles",
+    "Florida State Seminoles",
+    "Fresno State Bulldogs",
+    "Georgia Bulldogs",
+    "Georgia State Panthers",
+    "Georgia Tech Yellow Jackets",
+    "Houston Cougars",
+    "Illinois Fighting Illini",
+    "Indiana Hoosiers",
+    "Iowa Hawkeyes",
+    "Iowa State Cyclones",
+    "James Madison Dukes",
+    "Kansas Jayhawks",
+    "Kansas State Wildcats",
+    "Kennesaw State Owls",
+    "Kent State Golden Flashes",
+    "Kentucky Wildcats",
+    "LSU Tigers",
+    "Liberty Flames",
+    "Louisiana Tech Bulldogs",
+    "Louisville Cardinals",
+    "Marshall Thundering Herd",
+    "Maryland Terrapins",
+    "Memphis Tigers",
+    "Miami (OH) Redhawks",
+    "Michigan State Spartans",
+    "Michigan Wolverines",
+    "Middle Tennessee State Blue Raiders",
+    "Minnesota Golden Gophers",
+    "Mississippi State Bulldogs",
+    "Missouri Tigers",
+    "NC State Wolfpack",
+    "Navy Midshipmen",
+    "Nebraska Cornhuskers",
+    "Nevada Wolfpack",
+    "New Mexico Lobos",
+    "New Mexico State Aggies",
+    "North Carolina Tar Heels",
+    "North Texas Mean Green",
+    "Northern Illinois Huskies",
+    "Northwestern Wildcats",
+    "Notre Dame Fighting Irish",
+    "Ohio Bobcats",
+    "Ohio State Buckeyes",
+    "Oklahoma Sooners",
+    "Oklahoma State Cowboys",
+    "Old Dominion Monarchs",
+    "Ole Miss Rebels",
+    "Oregon Ducks",
+    "Oregon State Beavers",
+    "Penn State Nittany Lions",
+    "Pitt Panthers",
+    "Purdue Boilermakers",
+    "Rice Owls",
+    "Rutgers Scarlet Knights",
+    "SMU Mustangs",
+    "San Jose State Spartans",
+    "South Carolina Gamecocks",
+    "South Florida Bulls",
+    "Southern Miss Golden Eagles",
+    "Stanford Cardinal",
+    "Syracuse Orange",
+    "TCU Horned Frogs",
+    "Tennessee Volunteers",
+    "Texas A&M Aggies",
+    "Texas Longhorns",
+    "Texas State Bobcats",
+    "Texas Tech Red Raiders",
+    "Toledo Rockets",
+    "Troy Trojans",
+    "Tulane Green Wave",
+    "Tulsa Golden Hurricane",
+    "UAB Blazers",
+    "UCLA Bruins",
+    "ULM Warhawks",
+    "USC Trojans",
+    "UTEP Miners",
+    "UTSA Roadrunners",
+    "Utah State Aggies",
+    "Utah Utes",
+    "Vanderbilt Commodores",
+    "Virginia Cavaliers",
+    "Virginia Tech Hokies",
+    "Wake Forest Demon Deacons",
+    "Washington Huskies",
+    "Washington State Cougars",
+    "West Virginia Mountaineers",
+    "Western Kentucky Hilltoppers",
+    "Western Michigan Broncos",
+    "Wisconsin Badgers",
+    "Wyoming Cowboys"
+  ]
 }
