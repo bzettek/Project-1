@@ -12,7 +12,7 @@
 
 from flask import Flask, render_template, jsonify, request
 import numpy as np
-import os, csv, time
+import os, csv, time, re
 from joblib import load
 import pandas as pd
 
@@ -30,6 +30,11 @@ TEAM_NAMES_ALL = []  # for UI datalist
 
 def _normalize_name(name: str) -> str:
     return (name or "").strip().lower()
+
+
+def _split_tokens(name: str) -> list[str]:
+    """Lightweight tokenizer used only for matching (no alias generation)."""
+    return re.findall(r"[a-z0-9]+", (name or "").lower())
 
 def _build_from_team_source(path: str) -> bool:
     """Populate lookup exclusively from the curated CSV with Team / Capacity / Fill Rate."""
@@ -76,7 +81,12 @@ def _build_from_team_source(path: str) -> bool:
                 fill /= 100.0
             fill = max(0.0, min(fill, 1.0))
 
-        LOOKUP[key] = {"team": team_name, "capacity": capacity, "fill": fill}
+        LOOKUP[key] = {
+            "team": team_name,
+            "capacity": capacity,
+            "fill": fill,
+            "tokens": _split_tokens(team_name),
+        }
         TEAM_NAMES_ALL.append(team_name)
 
     TEAM_NAMES_ALL[:] = sorted(set(TEAM_NAMES_ALL))
@@ -130,7 +140,34 @@ def _best_key_for(query: str):
     if substring_matches:
         return min(substring_matches, key=lambda k: len(LOOKUP[k]["team"]))
 
-    return None
+    # token overlap scoring (helps queries like "university of notre dame")
+    query_tokens = _split_tokens(q)
+    if not query_tokens:
+        return None
+
+    best_key = None
+    best_score = 0
+    best_length = None
+
+    for key, data in LOOKUP.items():
+        team_tokens = data.get("tokens") or _split_tokens(data["team"])
+        score = 0
+        for token in query_tokens:
+            if token in team_tokens:
+                score += 2
+            elif any(t.startswith(token) for t in team_tokens):
+                score += 1
+        if score > best_score:
+            best_key = key
+            best_score = score
+            best_length = len(data["team"])
+        elif score == best_score and score > 0:
+            name_len = len(data["team"])
+            if best_length is None or name_len < best_length:
+                best_key = key
+                best_length = name_len
+
+    return best_key if best_score > 0 else None
 
 # ---------------------- Routes ----------------------
 @app.route("/")

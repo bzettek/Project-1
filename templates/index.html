@@ -466,6 +466,7 @@
 
     const suggestionLimit = 8;
     let teamOptions = [];
+    const teamTokensMap = new Map();
     let suggestionItems = [];
     let activeSuggestion = -1;
 
@@ -528,12 +529,42 @@
       setActiveSuggestion(-1);
     };
 
+    const tokenize = (text) => (text.toLowerCase().match(/[a-z0-9]+/g) || []);
+
+    const getTeamTokens = (name) => {
+      if (!teamTokensMap.has(name)) {
+        teamTokensMap.set(name, tokenize(name));
+      }
+      return teamTokensMap.get(name);
+    };
+
     const filterTeams = (query) => {
-      const q = query.trim().toLowerCase();
-      if (!q) {
+      const rawTokens = tokenize(query);
+      const significant = rawTokens.filter(tok => {
+        return teamOptions.some(name => {
+          const tokens = getTeamTokens(name);
+          return tokens.some(nt => nt.startsWith(tok));
+        });
+      });
+
+      const tokens = significant.length
+        ? significant
+        : rawTokens.length
+          ? [rawTokens[rawTokens.length - 1]]
+          : [];
+
+      if (!tokens.length) {
         return teamOptions.slice(0, suggestionLimit);
       }
-      return teamOptions.filter(name => name.toLowerCase().includes(q)).slice(0, suggestionLimit);
+
+      return teamOptions
+        .filter(name => {
+          const nameTokens = getTeamTokens(name);
+          return tokens.every(tok =>
+            nameTokens.some(nt => nt.startsWith(tok))
+          );
+        })
+        .slice(0, suggestionLimit);
     };
 
     fetch('/api/teams')
@@ -541,6 +572,8 @@
       .then(arr => {
         if (Array.isArray(arr)) {
           teamOptions = arr;
+          teamTokensMap.clear();
+          teamOptions.forEach(name => teamTokensMap.set(name, tokenize(name)));
           if (document.activeElement === homeTeamInput) {
             renderSuggestions(filterTeams(homeTeamInput.value));
           }
